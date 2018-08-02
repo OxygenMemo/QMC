@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	
+  <style>
+  
+  @font-face {
+            font-family: 'THSarabunNew';
+            font-style: normal;
+            font-weight: normal;
+            src: url("<?= base_url() ?>share/tem/THSarabunNew.ttf") format('truetype');
+        }
+        @font-face {
+            font-family: 'THSarabunNew';
+            font-style: normal;
+            font-weight: bold;
+            src: url("<?= base_url() ?>share/tem/THSarabunNew Bold.ttf") format('truetype');
+        }
+        @font-face {
+            font-family: 'THSarabunNew';
+            font-style: italic;
+            font-weight: normal;
+            src: url("<?= base_url() ?>share/tem/THSarabunNew Italic.ttf") format('truetype');
+        }
+        @font-face {
+            font-family: 'THSarabunNew';
+            font-style: italic;
+            font-weight: bold;
+            src: url("<?= base_url() ?>share/tem/THSarabunNew BoldItalic.ttf") format('truetype');
+        }
+       
+		.small_para{
+			font-size: 10px;
+		}
+		.product_font {
+			font-size: 12px;
+		}
+		.head_product_font{
+			font-size: 15px;
+		}
+		.table{
+			width: 100%;
+			border: 0px white;
+			border-collapse: collapse; 
+		}
+		
+		.right-table{
+			float: right;
+		}
+		tr.border_bottom td{
+			border-bottom: black 1px solid;
+		}
+		tr.head_product_font td{
+			border: #9E9E9E 1.5px solid;
+		}
+		.headtable{
+			border: 1.5px #9E9E9E solid
+		}
+		.font-blue{
+			color: #000486;
+		}
+		.font-red{
+			color: #C30000;
+		}
+  </style>
+</head>
+<body>
+	
+	<table  class="table">
+		<tr>
+			<td><h2 class="">QUOTATION</h2></td>
+			<td>
+				<img class="right-table" src="<?= base_url() ?>share/img/logo-mc.gif"/>
+			</td>
+
+		</tr>
+		
+		<tr>
+			<td><p class="small_para">This document is issued electronically</p></td>
+			<td><p class="small_para right-table" style="margin-right: 50px">http://qmcal.com/</p></td>
+		</tr>
+	</table>
+	<hr>
+	<!-- inner head -->
+	<br>
+	<table class="table small_para">
+		<tr >
+			<td >C Code:</td>
+			<td  class="font-red">RCIT</td>
+			<td ></td>
+			<td ></td>
+		</tr>
+		<tr>
+			<td>BILL</td>
+			<td class="font-blue">RCI Testing inspection & Consulting Co.,Ltd.</td>
+			<td>DATE</td>
+			<td class="font-red">4-Jul-18</td>
+		</tr>
+		<tr>
+			<td>Branch</td>
+			<td class="font-blue">Head office</td>
+			<td>No #</td>
+			<td class="font-red">mQ180704-01</td>
+		</tr>
+		<tr>
+			<td>TAX ID</td>
+			<td class="font-blue">0215552002910</td>
+			<td>Ref. #</td>
+			<td class="font-blue">As inquiry</td>
+		</tr>
+		<tr>
+			<td>ADDRESS</td>
+			<td class="font-blue">/11-14 Moo 3, Tambol Banchang, Amphur Banchang Rayong 21130</td>
+			<td>Fax:</td>
+			<td class="font-blue">0-3860-3775</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td>Email:</td>
+			<td class="font-blue">chuleeporn.r@rci-thailand.com</td>
+		</tr>
+		<tr>
+			<td>Mobile</td>
+			<td class="font-blue">8-9605-1441</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<br>
+	<!-- product table for -->
+	<table   class="table headtable">
+		<tr class="head_product_font">
+			<td style="width: 80px">Product nr</td>
+			<td style="width: 230px">Description</td>
+			<td style="width: 100px">Unit piece (THB)</td>
+			<td style="width: 100px">Quantity (pcs)</td>
+			<td style="width: 100px">Amount (THB)</td>
+		</tr>
+		
+		<tr class="product_font">
+			
+			<td>WG1001</td>
+			<td>Calibration for;weight scale-electronic 0-1000 g</td>
+			<td > ฿ 1,000.00 </td>
+			<td><center>1</center></td>
+			<td> ฿ 1,000.00 </td>
+			
+		</tr>
+		<tr class="product_font">
+			<td>WG1001</td>
+			<td>Calibration for;weight scale-electronic 0-1000 g</td>
+			<td> ฿ 1,000.00 </td>
+			<td><center>1</center></td>
+			<td> ฿ 1,000.00 </td>
+		</tr>
+		<tr class="product_font">
+			<td>WG1001</td>
+			<td>Calibration for;weight scale-electronic 0-1000 g</td>
+			<td> ฿ 1,000.00 </td>
+			<td><center>1</center></td>
+			<td> ฿ 1,000.00 </td>
+		</tr>
+		<tr class="product_font">
+			<td>WG1001</td>
+			<td>Calibration for;weight scale-electronic 0-1000 g</td>
+			<td> ฿ 1,000.00 </td>
+			<td><center>1</center></td>
+			<td> ฿ 1,000.00 </td>
+		</tr>
+	<!-- product table for -->
+		
+	</table>
+	<br>
+	<br>
+	<table class="table">
+		<tr>
+			<td style="width: 70%">
+				<table class="small_para">
+					<tr><td class="head_product_font">Condition:</td></tr>
+					<tr><td>1. This quote is due within 30 days from the date of issue.</td></tr>
+					<tr><td>2. The QMcal is the laboratory that follow ISO/IEC 17025 standard.</td></tr>
+					<tr><td>3. The above price is applied for calibration service in the period of quote time.</td></tr>
+					<tr><td>4. Payment term: <b class="font-blue">100% within the date of service.</b></td></tr>
+					<tr><td>5. Invoice will be submitted as per payment terms.	</td></tr>
+					<tr><td>6. Client responsibles for any damages of any nature/usaged/handling condition.	</td></tr>
+					<tr><td>7. Upon accepted, please issue PO and email back for further process.	</td></tr>
+				</table>
+			</td>
+		<td style="width: 30%">
+			<table style="font: 11px bold">
+				<tr class="border_bottom">
+					<td style="width: 70px">SUBTOTAL</td>
+					<td style="width: 100px;"><p style="margin-bottom: 10px;text-align: right" >5000</p></td>
+					
+				</tr>
+				
+				<tr>
+					<td>TAX RATE</td>
+					<td><p style="margin-bottom: 10px;text-align: right" >7.00%</p></td>
+				</tr>
+				<tr class="border_bottom">
+					<td>TOTAL TAX</td>
+					<td><p style="margin-bottom: 10px;text-align: right" >฿ 385.00 </p></td>
+				</tr>
+				<tr>
+					<td>TOTAL</td>
+					<td><p style="margin-bottom: 10px;text-align: right" >฿ 5,885.00 </p></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	</table>
+	<br><br><br>
+	<!-- footer -->
+	<table style="margin-left: 50px;width: 80%">
+		<tr>
+			<td style="width: 200px">___________________</td>
+			<td style="text-align:right;"></td>
+		</tr>
+		<tr>
+			<td style="width: 200px">Client confirmation (sign)</td>
+			<td style="text-align:right;"><i style="font-size: 13px">Issued by: Saowalak S.</i></td>
+		</tr>
+		<tr>
+			<td>Date____/____/_____</td>
+		</tr>
+	</table>
+	<br><br>
+	<table   class="table" style="font-size: 12px">
+		<tr>
+			<td>  Quality Associates Ltd. - Branch 00001</td>
+		</tr>
+		<tr>
+			<td > Address : 88 Geo-Informatics and Space Technology Development Agency(Public Organization)<br> Moo 9 T.Tungsukla A.Sriracha Chonburi 20230</td>
+
+		</tr>
+		<tr>
+			<td> Tax ID: 0115550004576</td>
+		</tr>
+		<tr>
+			<td>  T: +66(0)889050555/(0)33005109  F:  +66(0)21018913  E: mc@quality-thailand.com  </td>
+			<td style="text-align: right">  Customer copy	</td>
+		</tr>
+	</table>
+</body>
+</html>
