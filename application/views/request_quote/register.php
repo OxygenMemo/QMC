@@ -37,59 +37,82 @@
                     <div class="section-heading req-quote">
                         <h2>Request Quote</h2>
                         <p>กรุณากรอกข้อมูลของท่าให้ครบถ้วน</p>
-                        <p>Your email : <?php echo $_SESSION['email'] ?></p>
+                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['email']) ?></p>
                         <div class="article" style="text-align: left;" >
                         <?php echo form_open(base_url()."index.php/page/register"); ?>
                                 <div class="form-group">
-                                    <label for="company_name">Company name :</label>
-                                    <input type="text" class="form-control" id="company_name" placeholder="Your company name" name="company_name" maxlength="80" required>
+                                    <label for="company_name">Company name : <?php echo form_error('company_name'); ?></label>
+                                    <input type="text" class="form-control" id="company_name"
+                                    placeholder="Your company name" name="company_name" maxlength="80" required
+                                    value="<?php echo set_value('company_name'); ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="company_code">Company code : <sub>(ตัวอักษรย่อของบริษัท 4 ตัว)</sub></label>
-                                    <input type="text" class="form-control" id="company_code" placeholder="Your company code" name="company_code" maxlength="4" required>
+                                    <label for="company_code">Company code : <sub>(ตัวอักษรย่อของบริษัท 4 ตัว)</sub> <?php echo form_error('company_code'); ?></label>
+                                    <input type="text" class="form-control" id="company_code" 
+                                    placeholder="Your company code" name="company_code" maxlength="4" required
+                                    value="<?php echo set_value('company_code');?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="contact">Contact : </label>
-                                    <input type="text" class="form-control" id="contact" placeholder="Contact" name="contact">
+                                    <label for="contact">Contact :  <?php echo form_error('contact'); ?></label>
+                                    <input type="text" class="form-control" id="contact" 
+                                    placeholder="Contact" name="contact" maxlength="60" required
+                                    value="<?php echo set_value('contact');?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="branch">branch : </label>
-                                    <input type="text" class="form-control" id="branch" placeholder="Your branch" name="branch">
+                                    <label for="branch">branch : <?php echo form_error('branch'); ?></label>
+                                    <input type="text" class="form-control" id="branch" 
+                                    placeholder="Your branch" name="branch" maxlength="50" required
+                                    value="<?php echo set_value('branch');?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="address">Address: </label>
-                                    <textarea style="resize: vertical; " class="form-control" id="address" placeholder="Your company address" name="company_code" maxlength="150" required></textarea>
+                                    <label for="address">Address: <?php echo form_error('address'); ?></label>
+                                    <textarea style="resize: vertical; " class="form-control" id="address" 
+                                    placeholder="Your company address" name="address" maxlength="150" required><?php echo set_value('address');?></textarea>
                                 </div>
                                 <div class="form-inline" >
-                                        <label for="sel1">Select list (select one) : </label> <br>
-                                        <select class="form-control" style="width:30%" id="sel1">
-                                          <option selected>กรุณาเลือก</option>
+                                        <label for="city_id">Select list (select one) : <?php echo form_error('city_id'); ?></label> <br>
+                                        <select class="form-control" style="width:30%" name="city_id" id="city_id" require>
+                                          <option value="" selected>กรุณาเลือก</option>
                                           <?php
                                             foreach ($cities->result() as $key => $value) {
-                                                echo "<option value='{$value->city_id}'>{$value->city_name_th}</option>";
+                                                echo "<option value={$value->city_id}>{$value->city_name_th}</option>";
                                             }
                                           ?>
                                           
                                         </select>
                                 </div>
                                 <div class="form-group">
-                                        <label for="postcode">postcode : </label>
-                                        <input type="text" class="form-control" id="postcode" placeholder="Your company postcode" name="postcode" required maxlength="5">
+                                        <label for="postcode">postcode : <?php echo form_error('postcode'); ?></label>
+                                        <input type="text" class="form-control" id="postcode"
+                                         placeholder="Your company postcode" name="postcode" required maxlength="5"
+                                         value="<?php echo set_value('postcode');?>">
                                 </div>
                                 <div class="form-group">
-                                        <label for="tex_id">tex id : </label>
-                                        <input type="text" class="form-control" id="tex_id" placeholder="Your company tex id" name="tex_id" required maxlength="12">
+                                        <label for="tex_id">tex id : <?php echo form_error('tex_id'); ?></label>
+                                        <input type="text" class="form-control" id="tex_id" 
+                                        placeholder="Your company tex id" name="tex_id" required maxlength="12"
+                                        value="<?php echo set_value('tex_id');?>">
                                 </div>
                                 <div class="form-group">
-                                        <label for="mobile">mobile : </label>
-                                        <input type="text" class="form-control" id="mobile" placeholder="Your company mobile" name="mobile" required maxlength="12">
+                                        <label for="tel">tel : <?php echo form_error('tel'); ?></label>
+                                        <input type="text" class="form-control" id="tel" 
+                                        placeholder="Your company tel" name="tel" required maxlength="12"
+                                        value="<?php echo set_value('tel');?>">
                                 </div>
                                 <div class="form-group">
-                                        <label for="fax">Fax : </label>
-                                        <input type="text" class="form-control" id="fax" placeholder="Your company fax" name="fax" required maxlength="12">
+                                        <label for="mobile">mobile : <?php echo form_error('mobile'); ?></label>
+                                        <input type="text" class="form-control" id="mobile" 
+                                        placeholder="Your company mobile" name="mobile" required maxlength="12"
+                                        value="<?php echo set_value('mobile');?>">
+                                </div>
+                                <div class="form-group">
+                                        <label for="fax">Fax : <?php echo form_error('fax'); ?></label>
+                                        <input type="text" class="form-control" id="fax" 
+                                        placeholder="Your company fax" name="fax" required maxlength="12"
+                                        value="<?php echo set_value('fax');?>">
                                 </div>
                                 
-                                <button type="submit" class="btn btn-default">Submit</button>
+                                <button name="submit" type="submit" class="btn btn-default">Submit</button>
                                
                             </form>
                             <div class="clr"></div>

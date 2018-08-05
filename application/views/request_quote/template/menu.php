@@ -6,16 +6,10 @@
                         <nav class="gn-menu-wrapper">
                             <div class="gn-scroller">
                                 <ul class="gn-menu">
-                                    <li class="gn-search-item">
-                                        <input placeholder="Search" type="search" class="gn-search">
-                                        <a class="gn-icon gn-icon-search"><span>Search</span></a>
-                                    </li>
+                                    
                                     <li><a href="#about" class="gn-icon gn-icon-download">Profile</a></li>
-                                    <li><a href="#service" class="gn-icon gn-icon-cog">Request Quote</a></li>
-                                    <li><a href="#works" class="gn-icon gn-icon-help">Contact me</a></li>
-                                    <li><a href="#contact" class="gn-icon gn-icon-archive">Solution</a></li>
-                                    <li><a href="#vacant" class="gn-icon gn-icon-archive">Job vacant</a></li>	
-                                    <li><a href="#quote" class="gn-icon gn-icon-archive">Request quote</a></li>
+                                    <li><a href="<?= base_url() ?>index.php/page/load_quote_list" class="gn-icon gn-icon-archive">Quote list</a></li>	
+                                    <li><a href="<?= base_url() ?>index.php/page/load_request_quote" class="gn-icon gn-icon-archive">Request quote</a></li>
                                 </ul>
                             </div><!-- /gn-scroller -->
                         </nav>

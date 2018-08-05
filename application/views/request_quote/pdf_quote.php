@@ -91,43 +91,43 @@
 	<table class="table small_para">
 		<tr >
 			<td >C Code:</td>
-			<td  class="font-red">RCIT</td>
+			<td  class="font-red"><?= htmlspecialchars($customer_code) ?></td>
 			<td ></td>
 			<td ></td>
 		</tr>
 		<tr>
 			<td>BILL</td>
-			<td class="font-blue">RCI Testing inspection & Consulting Co.,Ltd.</td>
+			<td class="font-blue"><?= htmlspecialchars($customer_company) ?></td>
 			<td>DATE</td>
-			<td class="font-red">4-Jul-18</td>
+			<td class="font-red"><?= htmlspecialchars($quote_date); ?></td>
 		</tr>
 		<tr>
 			<td>Branch</td>
-			<td class="font-blue">Head office</td>
+			<td class="font-blue"><?= htmlspecialchars($customer_branch); ?></td>
 			<td>No #</td>
-			<td class="font-red">mQ180704-01</td>
+			<td class="font-red"><?= htmlspecialchars($quote_no) ?></td>
 		</tr>
 		<tr>
 			<td>TAX ID</td>
-			<td class="font-blue">0215552002910</td>
+			<td class="font-blue"><?= htmlspecialchars($customer_texid) ?></td>
 			<td>Ref. #</td>
-			<td class="font-blue">As inquiry</td>
+			<td class="font-blue"><?= htmlspecialchars($quote_ref); ?></td>
 		</tr>
 		<tr>
 			<td>ADDRESS</td>
-			<td class="font-blue">/11-14 Moo 3, Tambol Banchang, Amphur Banchang Rayong 21130</td>
+			<td width=200 class="font-blue"><?= htmlspecialchars($customer_address); ?></td>
 			<td>Fax:</td>
-			<td class="font-blue">0-3860-3775</td>
+			<td class="font-blue"><?= htmlspecialchars($customer_fax); ?></td>
 		</tr>
 		<tr>
 			<td></td>
 			<td></td>
 			<td>Email:</td>
-			<td class="font-blue">chuleeporn.r@rci-thailand.com</td>
+			<td class="font-blue"><?= htmlspecialchars($customer_email) ?></td>
 		</tr>
 		<tr>
 			<td>Mobile</td>
-			<td class="font-blue">8-9605-1441</td>
+			<td class="font-blue"><?= htmlspecialchars($customer_mobile) ?></td>
 			<td></td>
 			<td></td>
 		</tr>
@@ -142,37 +142,22 @@
 			<td style="width: 100px">Quantity (pcs)</td>
 			<td style="width: 100px">Amount (THB)</td>
 		</tr>
+		<?php
+		$sub_total = 0;
+			foreach ($products as $key => $value) {
+				echo '<tr class="product_font">';
+				echo "<td>".htmlspecialchars($value->product_category_no.$value->product_no)."</td>";
+				echo "<td>".htmlspecialchars($value->product_name)."</td>";
+				echo "<td>{$value->product_price}</td>";
+				echo "<td><center>".$value->quality."</center></td>";
+				echo "<td>".$value->amount."</td>";
+				echo "</tr>";
+				$sub_total += $value->amount;
+			}
+			$tex = $sub_total *0.07;
+			$total = $tex+$sub_total;
+		?>
 		
-		<tr class="product_font">
-			
-			<td>WG1001</td>
-			<td>Calibration for;weight scale-electronic 0-1000 g</td>
-			<td > ฿ 1,000.00 </td>
-			<td><center>1</center></td>
-			<td> ฿ 1,000.00 </td>
-			
-		</tr>
-		<tr class="product_font">
-			<td>WG1001</td>
-			<td>Calibration for;weight scale-electronic 0-1000 g</td>
-			<td> ฿ 1,000.00 </td>
-			<td><center>1</center></td>
-			<td> ฿ 1,000.00 </td>
-		</tr>
-		<tr class="product_font">
-			<td>WG1001</td>
-			<td>Calibration for;weight scale-electronic 0-1000 g</td>
-			<td> ฿ 1,000.00 </td>
-			<td><center>1</center></td>
-			<td> ฿ 1,000.00 </td>
-		</tr>
-		<tr class="product_font">
-			<td>WG1001</td>
-			<td>Calibration for;weight scale-electronic 0-1000 g</td>
-			<td> ฿ 1,000.00 </td>
-			<td><center>1</center></td>
-			<td> ฿ 1,000.00 </td>
-		</tr>
 	<!-- product table for -->
 		
 	</table>
@@ -196,7 +181,7 @@
 			<table style="font: 11px bold">
 				<tr class="border_bottom">
 					<td style="width: 70px">SUBTOTAL</td>
-					<td style="width: 100px;"><p style="margin-bottom: 10px;text-align: right" >5000</p></td>
+					<td style="width: 100px;"><p style="margin-bottom: 10px;text-align: right" >฿ <?= $sub_total ?></p></td>
 					
 				</tr>
 				
@@ -206,11 +191,11 @@
 				</tr>
 				<tr class="border_bottom">
 					<td>TOTAL TAX</td>
-					<td><p style="margin-bottom: 10px;text-align: right" >฿ 385.00 </p></td>
+					<td><p style="margin-bottom: 10px;text-align: right" >฿ <?= $tex ?> </p></td>
 				</tr>
 				<tr>
 					<td>TOTAL</td>
-					<td><p style="margin-bottom: 10px;text-align: right" >฿ 5,885.00 </p></td>
+					<td><p style="margin-bottom: 10px;text-align: right" >฿ <?= $total ?> </p></td>
 				</tr>
 			</table>
 		</td>
