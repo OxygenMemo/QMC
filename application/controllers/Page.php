@@ -169,9 +169,6 @@ class Page extends CI_Controller {
 		$data['quote_ref'] = $data_quote->quote_ref;
 		$data['quote_status'] = $data_quote->quote_status;
 		$data['employee_name'] = $data_quote->employee_name;
-
-		
-
 		
 		$data['products'] = $products->result();
 
@@ -197,17 +194,38 @@ class Page extends CI_Controller {
         $this->load->library('pdf');
 		
         // Load HTML content
-        $this->dompdf->loadHtml($html);
+        $this->dompdf->load_Html($html);
         
-        $this->dompdf->setPaper('A4');
-		
-		$this->dompdf->render();
+        $this->dompdf->setPaper('A4','portrait');
 		$this->dompdf->set_option('isRemoteEnabled', TRUE);
+		$this->dompdf->render();
+		
         
 		$this->dompdf->stream("quote.pdf", array("Attachment"=>0));
 
 		
+		exit(0);
+
+	}
+	public function test2(){
+		$this->load->view('test');
+        // Get output html
+        $html = $this->output->get_output();
+        // Load pdf library
+        $this->load->library('pdf');
 		
+        // Load HTML content
+        $this->dompdf->load_Html($html);
+        
+        $this->dompdf->setPaper('A4','portrait');
+		$this->dompdf->set_option('isRemoteEnabled', TRUE);
+		$this->dompdf->render();
+		
+        
+		$this->dompdf->stream("quote.pdf", array("Attachment"=>0));
+
+		
+		exit(0);
 	}
 	public function index()
 	{
@@ -364,6 +382,7 @@ class Page extends CI_Controller {
 				'customer_contact'     		=> $value->customer_contact,
 				'customer_branch'     		=> $value->customer_branch,
 				'customer_address'     		=> $value->customer_address,
+				'customer_postcode'			=> $value->customer_postcode,
 				'customer_texid'     		=> $value->customer_texid,
 				'customer_tel'     			=> $value->customer_tel,
 				'customer_mobile'   		=> $value->customer_mobile,
@@ -382,6 +401,7 @@ class Page extends CI_Controller {
 			'customer_branch'     		,
 			'customer_address'     		,
 			'customer_texid'     		,
+			'customer_postcode'			,
 			'customer_tel'     			,
 			'customer_mobile'   		,
 			'customer_fax'     			,
@@ -486,6 +506,21 @@ class Page extends CI_Controller {
 		//$this->check_register();
 		//------
 		$this->load->view('request_quote/request_quote.php');
+	}
+	public function load_profile()
+	{
+		$this->load->view('request_quote/profile_view');
+	}
+	public function load_quote_list()
+	{
+		$this->load->model('quote_model');
+		$data['quotes'] = $this->quote_model->getQUote_By_customerId($_SESSION['customer_id'])->result();
+		$this->load->view('request_quote/quote_list',$data);
+	}
+	public function load(){
+		$this->load->model('quote_model');
+		$data['quotes'] = $this->quote_model->getQUote_By_customerId($_SESSION['customer_id'])->result();
+		echo json_encode($data['quotes']);
 	}
 	//--------------- Algor ------------------
 	private function gen_digit()

@@ -75,7 +75,7 @@
 		<tr>
 			<td><h2 class="">QUOTATION</h2></td>
 			<td>
-				<img class="right-table" src="<?= base_url() ?>share/img/logo-mc.gif"/>
+				<img class="right-table" src="http://www.qmcal.com/img/logo-mc.gif"/>
 			</td>
 
 		</tr>

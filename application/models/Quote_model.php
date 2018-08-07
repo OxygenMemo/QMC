@@ -1,6 +1,11 @@
 <?php
 class Quote_model extends CI_Model 
 {
+    public function getQUote_By_customerId($cid)
+    {
+        $this->db->where('customer_id',$cid);
+        return $this->db->get('quote');
+    }
     public function getLast_quote_no($date)
     {
         $arr = array($date);
