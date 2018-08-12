@@ -35,39 +35,67 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>QUOTE LIST </h2>
-                        <p></p>
-                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['customer_email']) ?></p>
+                        <h2>dashboard </h2>
+                        <p>New quote to day <?= $date ?></p>
+                        <form class="form-inline" action="/action_page.php">
+                            <div class="form-group">
+                                <label for="search">search : </label>
+                                <input type="text"  class="form-control" name="search" id="search">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        </form> 
+                        <br>
+                       
                         <div class="article" style="text-align: left;" >
                             <table  class="table">
-                                <tr>
-                                    <th>no</th>
+                                
+                            <tr>
+                                    <th>quote no</th>
+                                    <th>company</th>
                                     <th>date</th>
-                                    <th>ref</th>
+                                    <th>total + tex rate</th>
                                     <th>status</th>
+                                    <th colspan="2">option</th>
                                 </tr>
                                 <?php
-                                if(!empty($quotes)){
                                     foreach ($quotes as $key => $value) {
+                                        
                                         echo "<tr>";
                                         echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
+                                        echo "<td>{$value->customer_company}</td>";
                                         echo "<td>{$value->quote_date}</td>";
-                                        echo "<td>{$value->quote_ref}</td>";
+                                        echo "<td>{$value->total}</td>";
                                         switch($value->quote_status){
-                                            case 0:echo "<td>not vertify</td>"; break;
-                                            case 1: echo "<td>working</td>"; break;
-                                            case 2: echo "<td>complete</td>"; break;
+                                            case 0:
+                                                echo "<td>not vertify</td>"; 
+                                                echo "<td>";
+                                                echo "<form action='' method='post'>";
+                                                echo "<button type='submit' onclick='return confirm(`Are you sure for change status to working?`)'>"."<span class='glyphicon glyphicon-ok'></span>"."</button>";
+                                                
+                                                echo "</form>";
+                                                echo "</td>";
+                                            break;
+                                            case 1: echo "<td><a href='".base_url()."index.php/page_admin/working/{$value->quote_id}'>working</a></td><td></td>"; break;
+                                            case 2: echo "<td>complete</td><td></td>"; break;
                                         }
+                                        
+                                        
+                                        echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
+                                        echo "<td>
+                                                <form action='".base_url()."index.php/page_admin/delete_dashboard' method='post'>
+                                                <input type='hidden' name='qid' value='{$value->quote_id}'>
+                                                <button  name='submit' type='subbmit' onclick='return confirm(`Are you want to delete {$value->quote_no}?`)'><span class='glyphicon glyphicon-trash'></span></button>
+                                                </form>
+                                            </td>";
+                                        
+
                                         echo "</tr>";
+                                        
                                     }
-                                }else{
-                                    echo "<tr>";
-                                    echo "<td style='text-align: center' colspan='5'><h4>you don't have quote</h4></td>";
-                                    echo "</tr>";
-                                }
 
                                 ?>
-                                
+
 
                             </table>
                                 

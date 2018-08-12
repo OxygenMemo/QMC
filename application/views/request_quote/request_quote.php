@@ -39,7 +39,7 @@
                     <div class="section-heading req-quote">
                         <h2>Request quote </h2>
                         <p>กรุณากรอกข้อมูลให้ครบถ้วน</p>
-                        <p>Your email : <?php echo htmlspecialchars($_SESSION['email']) ?></p>
+                        <p>Your email : <?php echo htmlspecialchars($_SESSION['customer_email']) ?></p>
                         <div class="article" >
                         <form action="<?= base_url() ?>index.php/page/save_quote" method="post" onsubmit="return confirm('คุณต้องการยืนยันการทำรายการหรือไม่')">
                                 <h3>Product : </h3>

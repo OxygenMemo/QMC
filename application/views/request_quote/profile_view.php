@@ -37,7 +37,7 @@
                     <div class="section-heading req-quote">
                         <h2>Your profile</h2>
                         <p></p>
-                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['email']) ?></p>
+                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['customer_email']) ?></p>
                         <div class="article" style="text-align: left;" >
                         
                                 <div class="form-group">
@@ -47,12 +47,13 @@
                                     value="<?= htmlspecialchars($_SESSION['customer_code']);?>"  disabled>
                                 </div>
                                 <div class="form-group">
-                                <div class="form-group">
+                                
                                     <label for="company_name">Company name : </label>
                                     <input type="text" class="form-control" id="company_name"
                                     placeholder="Your company name" name="company_name" maxlength="80" 
-                                    value="<?= htmlspecialchars('customer_name'); ?>"  disabled>
+                                    value="<?= htmlspecialchars($_SESSION['customer_company']); ?>"  disabled>
                                 </div>
+                                <div>
                                     <label for="customer_contact">Contact : </label>
                                     <input type="text" class="form-control" id="customer_contact" 
                                     placeholder="Contact" name="customer_contact" maxlength="60" 

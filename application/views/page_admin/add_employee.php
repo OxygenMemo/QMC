@@ -35,42 +35,48 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>QUOTE LIST </h2>
+                        <h2>Add Employee</h2>
                         <p></p>
-                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['customer_email']) ?></p>
+                        
                         <div class="article" style="text-align: left;" >
-                            <table  class="table">
-                                <tr>
-                                    <th>no</th>
-                                    <th>date</th>
-                                    <th>ref</th>
-                                    <th>status</th>
-                                </tr>
-                                <?php
-                                if(!empty($quotes)){
-                                    foreach ($quotes as $key => $value) {
-                                        echo "<tr>";
-                                        echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
-                                        echo "<td>{$value->quote_date}</td>";
-                                        echo "<td>{$value->quote_ref}</td>";
-                                        switch($value->quote_status){
-                                            case 0:echo "<td>not vertify</td>"; break;
-                                            case 1: echo "<td>working</td>"; break;
-                                            case 2: echo "<td>complete</td>"; break;
-                                        }
-                                        echo "</tr>";
+                        <?= form_open(base_url()."index.php/page_admin/add_employee"); ?>
+                                
+                                <div class="form-group">
+                                    <label for="employee_name">name: </label>
+                                    <input type="text" class="form-control" id="employee_name"
+                                    placeholder="employee name" name="employee_name" maxlength="70" required >
+                                </div>
+                                <div class="form-group">
+                                <label for="branch_id">Select Branch (select one):</label>
+                                <select class="form-control" id="branch_id" name="branch_id" required>
+                                    <?php 
+                                    foreach ($branchs as $key => $value) {
+                                        echo "<option value='{$value->emp_branch_id}'>{$value->emp_branch_name}</option>";
                                     }
-                                }else{
-                                    echo "<tr>";
-                                    echo "<td style='text-align: center' colspan='5'><h4>you don't have quote</h4></td>";
-                                    echo "</tr>";
-                                }
-
-                                ?>
+                                    ?>
+                                    
+                                </select>
+                                </div>
                                 
-
-                            </table>
+                                <div class="form-group">
+                                    <label for="employee_username">username : </label>
+                                    <input type="text" class="form-control" id="employee_username" 
+                                    placeholder="username" name="employee_username" maxlength="20" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee_password">password : </label>
+                                    <input type="text" class="form-control" id="employee_password" 
+                                    placeholder="password" name="employee_password" maxlength="20" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee_password">password confirm : </label>
+                                    <input type="text" class="form-control" id="employee_password" 
+                                    placeholder="password confirm" name="employee_password" maxlength="20" >
+                                </div>
                                 
+                               
+                                <button name="submit" type="submit" class="btn btn-default" value="ok">Submit</button>
+                        </form>
                             
                             <div class="clr"></div>
                         </div>

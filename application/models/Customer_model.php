@@ -23,11 +23,12 @@ class Customer_model extends CI_Model
             'customer_contact' => $this->input->post("contact"),
             'customer_branch' => $this->input->post("branch"),
             'customer_address' => $this->input->post("address"),
+            'customer_postcode' => $this->input->post("postcode"),
             'customer_texid' => $this->input->post("tex_id"),
             'customer_tel' => $this->input->post("tel"),
             'customer_mobile' => $this->input->post("mobile"),
             'customer_fax' => $this->input->post("fax"),
-            'customer_email' => $_SESSION['email'],
+            'customer_email' => $_SESSION['customer_email'],
             'city_id' => $this->input->post("city_id"),
             'customer_discount_percent' => 0
         );

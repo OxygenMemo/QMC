@@ -20,4 +20,15 @@ class Product_model extends CI_Model
         $this->db->limit(1);
         return $this->db->get('product');
     }
+    public function getProducts()
+    {
+
+        $this->db->join('product_category', 'product_category.product_category_id = product.product_category_id', 'left');
+        return $this->db->get('product');
+    }
+    public function getProducts_by_category($cid)
+    {
+        $this->db->where('product_category_id',$cid);
+        return $this->db->get('product');
+    }
 }

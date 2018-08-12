@@ -109,7 +109,6 @@ class Page extends CI_Controller {
 	private function gen_quote_no($date)
 	{
 		//strtotime("+12 Months")
-
 		$quote_no = "MQ";
 		$quote_no .=  substr($date->format("Y"),2);
 		$quote_no .=  $date->format("m");
@@ -137,11 +136,7 @@ class Page extends CI_Controller {
 	}
 	public function gen_pdf($q_no=null)
 	{
-		$this->check_login();
-
-		if($this->check_register()){
-			//redirect(base_url()."index.php/page/load_register");	
-		};
+		
 
 		//check owner
 		
@@ -172,20 +167,6 @@ class Page extends CI_Controller {
 		
 		$data['products'] = $products->result();
 
-		/*
-		$data['category'] = $_POST['category'];
-		$data['product'] = $_POST['product'];
-		
-		$products_array = array();
-		$this->load->model('product_model');
-		foreach ($_POST['product'] as $key => $value) {
-			array_push($products_array,$this->product_model->getProduct_and_category($value)->result()[0]);
-		}
-		$data['products'] = $products_array;
-		
-		//$this->product_model->getProduct_and_category();
-		$data['quantity'] = $_POST['quantity'];
-		*/
 		
 		$this->load->view('request_quote/pdf_quote',$data);
         // Get output html
@@ -255,7 +236,7 @@ class Page extends CI_Controller {
 		$htmlContent = '<h1>Vertify your email</h1>';
 		$htmlContent .= "<p>your digit {$digits}</p>";
 
-		$this->email->to($_SESSION['email']);
+		$this->email->to($_SESSION['customer_email']);
 		$this->email->from('qmcal.th@gmail.com','QMC');
 		$this->email->subject('QMC Vertify ');
 		$this->email->message($htmlContent);
@@ -273,11 +254,11 @@ class Page extends CI_Controller {
 	{
 
 		$this->check_login();
-		$this->check_vertify();
+		//$this->check_vertify();
 		$this->load->model('customer_model');
 		if($this->input->post('digit') == $_SESSION['digit'])
 		{
-			$result = $this->customer_model->getCustomer($_SESSION['email']);
+			$result = $this->customer_model->getCustomer($_SESSION['customer_email']);
 			if(empty($result->result()))
 			{
 				//show view register
@@ -292,7 +273,8 @@ class Page extends CI_Controller {
 				$array_items = array('vertify');
 				$this->session->set_userdata($newdata);
 				$this->session->mark_as_temp($array_items, 3600);
-				$this->create_afterLogin_session($_SESSION['email']);
+				$this->create_afterLogin_session($_SESSION['customer_email']);
+				
 				redirect(base_url()."index.php/page/load_request_quote");
 
 			}
@@ -339,7 +321,7 @@ class Page extends CI_Controller {
 			{
 				$this->load->model('customer_model');
 				$this->customer_model->register();
-				$this->create_afterLogin_session($_SESSION['email']);
+				$this->create_afterLogin_session($_SESSION['customer_email']);
 				redirect(base_url()."index.php/page/load_request_quote");
 
 			}
@@ -420,10 +402,10 @@ class Page extends CI_Controller {
 		$digits = $this->gen_digit();
 		$newdata = array(
 			'digit'		=> $digits,
-			'email'     => $email,
+			'customer_email'     => $email,
 			'logged_in' => TRUE
 		);
-		$array_items = array('digit','email','logged_in');
+		$array_items = array('digit','customer_email','logged_in');
 		
 		$this->session->set_userdata($newdata);
 		$this->session->mark_as_temp($array_items, 3600);
@@ -445,7 +427,10 @@ class Page extends CI_Controller {
 			'city_id'     				,
 			'customer_discount_percent' ,
 			'logged_in' 				,
-			'vertify'
+			'vertify',
+			'digit'	,
+			"customer_postcode"
+
 			);
 		$this->session->unset_userdata($array_items);
 	}
@@ -459,7 +444,7 @@ class Page extends CI_Controller {
 	private function check_register(){
 		$this->load->model('customer_model');
 		
-			$result = $this->customer_model->getCustomer($_SESSION['email']);
+			$result = $this->customer_model->getCustomer($_SESSION['customer_email']);
 			if(empty($result->result()))
 			{
 				//show view register

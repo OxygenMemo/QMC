@@ -35,42 +35,38 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>QUOTE LIST </h2>
+                        <h2>Your profile</h2>
                         <p></p>
-                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['customer_email']) ?></p>
+                        
                         <div class="article" style="text-align: left;" >
-                            <table  class="table">
-                                <tr>
-                                    <th>no</th>
-                                    <th>date</th>
-                                    <th>ref</th>
-                                    <th>status</th>
-                                </tr>
-                                <?php
-                                if(!empty($quotes)){
-                                    foreach ($quotes as $key => $value) {
-                                        echo "<tr>";
-                                        echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
-                                        echo "<td>{$value->quote_date}</td>";
-                                        echo "<td>{$value->quote_ref}</td>";
-                                        switch($value->quote_status){
-                                            case 0:echo "<td>not vertify</td>"; break;
-                                            case 1: echo "<td>working</td>"; break;
-                                            case 2: echo "<td>complete</td>"; break;
-                                        }
-                                        echo "</tr>";
-                                    }
-                                }else{
-                                    echo "<tr>";
-                                    echo "<td style='text-align: center' colspan='5'><h4>you don't have quote</h4></td>";
-                                    echo "</tr>";
-                                }
-
-                                ?>
-                                
-
-                            </table>
-                                
+                        
+                                <div class="form-group">
+                                    <label for="employee_no">employee_no :  <?php echo form_error('employee_no'); ?></label>
+                                    <input type="text" class="form-control" id="employee_no" 
+                                    placeholder="Your employee no" name="customer_code" maxlength="4" 
+                                    value="<?= htmlspecialchars($_SESSION['employee_no']);?>"  disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee_name">employee_name: </label>
+                                    <input type="text" class="form-control" id="employee_name"
+                                    placeholder="Your company name" name="employee_name" maxlength="80" 
+                                    value="<?= htmlspecialchars('employee_name'); ?>"  disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee_username">employee_username : </label>
+                                    <input type="text" class="form-control" id="employee_username" 
+                                    placeholder="Contact" name="employee_username" maxlength="60" 
+                                    value="<?= htmlspecialchars($_SESSION['employee_username']) ?>" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="emp_branch_name">emp_branch_name : </label>
+                                    <input type="text" class="form-control" id="emp_branch_name" 
+                                    placeholder="Your branch" name="emp_branch_name" maxlength="50" disabled
+                                    value="<?=  htmlspecialchars($_SESSION['emp_branch_name']);?>">
+                                </div>
+                               
+                                <button name="submit" type="submit" class="btn btn-default">Submit</button>
+                               
                             
                             <div class="clr"></div>
                         </div>

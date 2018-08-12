@@ -35,41 +35,56 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>QUOTE LIST </h2>
-                        <p></p>
-                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['customer_email']) ?></p>
+                        <h2>product </h2>
+                        
+                        <form class="form-inline" action="/action_page.php">
+                            <div class="form-group">
+                                <label for="search">search : </label>
+                                <input type="text"  class="form-control" name="search" id="search">
+                            </div>
+                            
+                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        </form> 
+                        <br>
+                       
                         <div class="article" style="text-align: left;" >
-                            <table  class="table">
-                                <tr>
-                                    <th>no</th>
-                                    <th>date</th>
-                                    <th>ref</th>
-                                    <th>status</th>
-                                </tr>
+                            
                                 <?php
-                                if(!empty($quotes)){
-                                    foreach ($quotes as $key => $value) {
-                                        echo "<tr>";
-                                        echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
-                                        echo "<td>{$value->quote_date}</td>";
-                                        echo "<td>{$value->quote_ref}</td>";
-                                        switch($value->quote_status){
-                                            case 0:echo "<td>not vertify</td>"; break;
-                                            case 1: echo "<td>working</td>"; break;
-                                            case 2: echo "<td>complete</td>"; break;
+                                    foreach ($category as $key => $value) {
+                                        echo "<h3>{$value->product_category_name}</h3>";
+                                        ?>
+                                        <table  class="table">
+                                
+                                        <tr>
+                                            <th>product_no</th>
+                                            <th>product_name</th>
+                                            <th>product_price</th>
+                                            
+                                            <th colspan="2">option</th>
+                                        </tr>
+                                        <?php
+                                        foreach ($value->products as $row) {
+                                            # code...
+                                            echo "<tr>";
+                                            echo "<td>{$value->product_category_no}{$row->product_no}</td>";
+                                            echo "<td>{$row->product_name}</td>";
+                                            echo "<td>{$row->product_price}</td>";
+                                            
+                                            
+                                            echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
+                                            echo "<td><span class='glyphicon glyphicon-trash'></span></td>";
+                                            
+
+                                            echo "</tr>";
                                         }
-                                        echo "</tr>";
+                                        
+                                        echo "</table>";
                                     }
-                                }else{
-                                    echo "<tr>";
-                                    echo "<td style='text-align: center' colspan='5'><h4>you don't have quote</h4></td>";
-                                    echo "</tr>";
-                                }
 
                                 ?>
-                                
 
-                            </table>
+
+                            
                                 
                             
                             <div class="clr"></div>

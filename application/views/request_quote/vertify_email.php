@@ -37,7 +37,7 @@
                     <div class="section-heading req-quote">
                         <h2>Vertify email</h2>
                         <p>กรุณาตรวจสอบอีเมลของคุณ โปรดตรวจสอบชุดตัวเลขที่ส่งไปทางอีเมล</p>
-                        <p>Your email : <?php echo $_SESSION['email'] ?></p>
+                        <p>Your email : <?php echo $_SESSION['customer_email'] ?></p>
                         <div class="article" >
                         <?php echo form_open(base_url()."index.php/page/vertify"); ?>
                                 digit : <input type="text" name="digit">

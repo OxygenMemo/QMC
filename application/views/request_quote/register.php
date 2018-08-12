@@ -37,7 +37,7 @@
                     <div class="section-heading req-quote">
                         <h2>Request Quote</h2>
                         <p>กรุณากรอกข้อมูลของท่าให้ครบถ้วน</p>
-                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['email']) ?></p>
+                        <p>Your email : <?php echo  htmlspecialchars($_SESSION['customer_email']) ?></p>
                         <div class="article" style="text-align: left;" >
                         <?php echo form_open(base_url()."index.php/page/register"); ?>
                                 <div class="form-group">
