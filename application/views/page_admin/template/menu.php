@@ -6,7 +6,12 @@
                         <nav class="gn-menu-wrapper">
                             <div class="gn-scroller">
                                 <ul class="gn-menu">
-                                    
+                                    <li class="gn-search-item">
+                                        <form action="<?= base_url() ?>index.php/page_admin/search" method='post'>
+                                            <input name="search" placeholder="Search" class="gn-search" type="search">
+                                            <button type="submit" name="submit" value="ok"><a class="gn-icon gn-icon-search"><span>Search</span></a></button>
+                                        </form>
+                                    </li>
                                     <li><a href="<?= base_url() ?>index.php/page_admin/profile" class="gn-icon gn-icon-download">Profile</a></li>
                                     <li><a href="<?= base_url() ?>index.php/page_admin/dashboard" class="gn-icon gn-icon-archive">DashBoard</a></li>	
                                     <li><a href="<?= base_url() ?>index.php/page_admin/quote" class="gn-icon gn-icon-archive">Quote</a></li>

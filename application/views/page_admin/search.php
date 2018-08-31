@@ -35,69 +35,74 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>work order log</h2>
-                        <!--
-                        <form class="form-inline" action="/action_page.php">
+                        <h2>search </h2>
+                        
+                        <form class="form-inline" method="post" action="<?= base_url() ?>index.php/page_admin/search">
                             <div class="form-group">
                                 <label for="search">search : </label>
                                 <input type="text"  class="form-control" name="search" id="search">
                             </div>
                             
                             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                        </form>
-                        -->
+                        </form> 
                         <br>
                        
                         <div class="article" style="text-align: left;" >
                             <table  class="table">
                                 
-                                <tr>
+                            <tr>
                                     <th>quote no</th>
                                     <th>company</th>
+                                    <th>date</th>
                                     <th>total + tex rate</th>
                                     <th>status</th>
-                                    <th colspan="3">option</th>
+                                    <th colspan="2">option</th>
                                 </tr>
                                 <?php
-                                //echo json_encode($quotes);
-                                if(empty($quotes) || $quotes[0]->quote_id ==null){
-                                    echo "<td colspan='7'>don't have quote</td>";
+                                if(empty($quotes)){
+                                    echo "<tr><td>not found</td></tr>";
                                 }else{
+
                                     foreach ($quotes as $key => $value) {
                                         
                                         echo "<tr>";
                                         echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
                                         echo "<td>".htmlspecialchars($value->customer_company)."</td>";
+                                        echo "<td>".htmlspecialchars($value->quote_date)."</td>";
                                         echo "<td>{$value->total}</td>";
                                         switch($value->quote_status){
                                             case 0:
                                                 echo "<td>not vertify</td>"; 
                                                 echo "<td>";
-                                                echo "<form action='".base_url()."index.php/page_admin/changeStatusQuote_quote_to_working' method='post'>";
-                                                echo "<input type='hidden' name='qid' value='{$value->quote_id}'>";
+                                                echo "<form action='".base_url()."index.php/page_admin/changeStatusQuote_dashboard_to_working'  method='post'>";
+                                                echo "<input type='hidden' name='qid' value='".$value->quote_id."'>";
                                                 echo "<button type='submit' onclick='return confirm(`Are you sure for change status to working?`)'>"."<span class='glyphicon glyphicon-ok'></span>"."</button>";
                                                 
                                                 echo "</form>";
                                                 echo "</td>";
                                             break;
-                                            case 1: echo "<td><a href='".base_url()."index.php/page_admin/working/{$value->quote_id}'>working</a></td>"; break;
-                                            case 2: echo "<td>complete</td>"; break;
+                                            case 1: 
+                                                echo "<td><a href='".base_url()."index.php/page_admin/working/{$value->quote_id}'>working</a></td>";
+                                                if($value->total_workorder_status == 3)
+                                                {
+                                                    echo "<td>
+                                                    <form action='".base_url()."index.php/page_admin/create_recive' method='post'>
+                                                    <input type='hidden' name='qid' value='{$value->quote_id}'>
+                                                    <input type='hidden' name='qno' value='{$value->quote_no}'>
+                                                    <button name='submit' type='subbmit' onclick='return confirm(`you want to create recive {$value->quote_no}?`)' ><span class='glyphicon glyphicon-ok'></span><button>
+                                                    </form>
+                                                    </td>";
+                                                }else{
+                                                    echo "<td><button disabled><span class='glyphicon glyphicon-remove'></span><button></td>";
+                                                }
+                                                break;
+                                            case 2: echo "<td>receive</td><td></td>"; break;
                                         }
-                                        if($value->total_workorder_status == 3)
-                                        {
-                                            echo "<td>
-                                            <form action='".base_url()."index.php/page_admin/create_recive' method='post'>
-                                            <input type='hidden' name='qid' value='{$value->quote_id}'>
-                                            <input type='hidden' name='qno' value='{$value->quote_no}'>
-                                            <button name='submit' type='subbmit' onclick='return confirm(`you want to create recieve {$value->quote_no}?`)' ><span class='glyphicon glyphicon-ok'></span><button>
-                                            </form>
-                                            </td>";
-                                        }else{
-                                            echo "<td><button disabled><span class='glyphicon glyphicon-remove'></span></button></td>";
-                                        }
-                                        //echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
+                                        
+                                        
+                                        echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
                                         echo "<td>
-                                                <form action='".base_url()."index.php/page_admin/delete_quote_workorder' method='post'>
+                                                <form action='".base_url()."index.php/page_admin/changeStatusQuote_dashboard_to_working' method='post'>
                                                 <input type='hidden' name='qid' value='{$value->quote_id}'>
                                                 <button  name='submit' type='subbmit' onclick='return confirm(`Are you want to delete {$value->quote_no}?`)'><span class='glyphicon glyphicon-trash'></span></button>
                                                 </form>
@@ -108,8 +113,9 @@
                                         
                                     }
                                 }
+
                                 ?>
-;
+
 
                             </table>
                                 
@@ -129,9 +135,6 @@
             </div>
             </div>
         </div>
-        <ul class="pagination" id="pageing">
-    
-        </ul>
         </section>
 
 
@@ -146,20 +149,6 @@
 	<script src="<?= base_url() ?>share/js/stellar.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?= base_url() ?>share/js/custom.js"></script>
-    <script>
-        $(document).ready(()=>{
-            let html="";
-            for(i =1;i<= <?= $numpage ?>;i++){
-                if(<?= $page ?> ==  i){
-                    html = `<li class="disabled"><a href="#">${i}</a></li>`;
-                }else{
-                    html = `<li><a href="<?= base_url() ?>index.php/page_admin/recive/${i}">${i}</a></li>`;
-                }
-                $("#pageing").append(html);
-            }
 
-            
-        })
-    </script>
 </body>
 </html>

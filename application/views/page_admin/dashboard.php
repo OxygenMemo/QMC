@@ -63,27 +63,42 @@
                                         
                                         echo "<tr>";
                                         echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
-                                        echo "<td>{$value->customer_company}</td>";
+                                        echo "<td>".htmlspecialchars($value->customer_company)."</td>";
                                         echo "<td>{$value->quote_date}</td>";
-                                        echo "<td>{$value->total}</td>";
+                                        echo "<td>".htmlspecialchars($value->total)."</td>";
                                         switch($value->quote_status){
                                             case 0:
                                                 echo "<td>not vertify</td>"; 
                                                 echo "<td>";
-                                                echo "<form action='' method='post'>";
+                                                echo "<form action='".base_url()."index.php/page_admin/changeStatusQuote_dashboard_to_working'  method='post'>";
+                                                echo "<input type='hidden' name='qid' value='".$value->quote_id."'>";
                                                 echo "<button type='submit' onclick='return confirm(`Are you sure for change status to working?`)'>"."<span class='glyphicon glyphicon-ok'></span>"."</button>";
                                                 
                                                 echo "</form>";
                                                 echo "</td>";
                                             break;
-                                            case 1: echo "<td><a href='".base_url()."index.php/page_admin/working/{$value->quote_id}'>working</a></td><td></td>"; break;
-                                            case 2: echo "<td>complete</td><td></td>"; break;
+                                            case 1: 
+                                                echo "<td><a href='".base_url()."index.php/page_admin/working/{$value->quote_id}'>working</a></td>";
+                                                if($value->total_workorder_status == 3)
+                                                {
+                                                    echo "<td>
+                                                    <form action='".base_url()."index.php/page_admin/create_recive' method='post'>
+                                                    <input type='hidden' name='qid' value='{$value->quote_id}'>
+                                                    <input type='hidden' name='qno' value='{$value->quote_no}'>
+                                                    <button name='submit' type='subbmit' onclick='return confirm(`you want to create recive {$value->quote_no}?`)' ><span class='glyphicon glyphicon-ok'></span></button>
+                                                    </form>
+                                                    </td>";
+                                                }else{
+                                                    echo "<td><button disabled><span class='glyphicon glyphicon-remove'></span><button></td>";
+                                                }
+                                                break;
+                                                case 2: echo "<td><a href='".base_url()."index.php/page_admin/recieve_detail/{$value->quote_id}'>receive</a></td>"; break;
                                         }
                                         
                                         
-                                        echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
+                                        //echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
                                         echo "<td>
-                                                <form action='".base_url()."index.php/page_admin/delete_dashboard' method='post'>
+                                                <form action='".base_url()."index.php/page_admin/delete_quote_dashboard' method='post'>
                                                 <input type='hidden' name='qid' value='{$value->quote_id}'>
                                                 <button  name='submit' type='subbmit' onclick='return confirm(`Are you want to delete {$value->quote_no}?`)'><span class='glyphicon glyphicon-trash'></span></button>
                                                 </form>

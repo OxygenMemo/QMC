@@ -36,45 +36,34 @@
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
                         <h2>product </h2>
-                        
-                        <form class="form-inline" action="/action_page.php">
-                            <div class="form-group">
-                                <label for="search">search : </label>
-                                <input type="text"  class="form-control" name="search" id="search">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                        </form> 
                         <br>
-                       
-                        <div class="article" style="text-align: left;" >
-                            
-                                <?php
-                                    foreach ($category as $key => $value) {
-                                        echo "<h3>{$value->product_category_name}</h3>";
+                        <div class="article" style="text-align:left;" >
+                                    <?php
+                                        foreach ($category as $key => $value) {
+                                            echo "<h3>{$value->product_category_name} 
+                                            <a href='".base_url()."index.php/page_admin/addproduct/{$value->product_category_id}'><span class='glyphicon glyphicon-plus'></span></a>
+                                            </h3>";
                                         ?>
-                                        <table  class="table">
-                                
+                                    <table class="table">
                                         <tr>
                                             <th>product_no</th>
                                             <th>product_name</th>
                                             <th>product_price</th>
-                                            
                                             <th colspan="2">option</th>
                                         </tr>
-                                        <?php
+                                    <?php
                                         foreach ($value->products as $row) {
-                                            # code...
                                             echo "<tr>";
-                                            echo "<td>{$value->product_category_no}{$row->product_no}</td>";
-                                            echo "<td>{$row->product_name}</td>";
-                                            echo "<td>{$row->product_price}</td>";
-                                            
-                                            
-                                            echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
-                                            echo "<td><span class='glyphicon glyphicon-trash'></span></td>";
-                                            
-
+                                            echo "<td>".htmlspecialchars($value->product_category_no.$row->product_no)."</td>";
+                                            echo "<td>".htmlspecialchars($row->product_name)."</td>";
+                                            echo "<td>".htmlspecialchars($row->product_price)."</td>";
+                                            echo "<td><a href='".base_url()."index.php/page_admin/edit_product/{$row->product_id}'><button><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+                                            echo "<td>
+                                                <form method='post' action='".base_url()."index.php/page_admin/change_product_status_remove'>
+                                                    <input type='hidden' name='pid' value='{$row->product_id}'/>
+                                                    <button onclick='return confirm('you want to delete ".htmlspecialchars($row->product_no)." ?')' type='submit'><span class='glyphicon glyphicon-trash'></span></button>
+                                                </form>
+                                                </td>";
                                             echo "</tr>";
                                         }
                                         
@@ -82,15 +71,8 @@
                                     }
 
                                 ?>
-
-
-                            
-                                
-                            
                             <div class="clr"></div>
                         </div>
-                
-            
                     </div>
                 </div>
             <div class="article">

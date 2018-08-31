@@ -2,7 +2,7 @@
 class Employee_model extends CI_Model 
 {
     public function login($u,$p){
-        $data = array($u,md5(sha1($p)));
+        //$data = array($u,md5(sha1($p)));
         $this->db->where('employee_username',$u);
         $this->db->where('employee_password',md5(sha1($p)));
         $this->db->limit(1);
@@ -35,5 +35,10 @@ class Employee_model extends CI_Model
         $this->db->where('employee_id', $this->input->post('employee_id'));
         $this->db->update('employee');
 
+    }
+    public function getEmployeeByBranch($bid){
+        //emp_branch_id
+        $this->db->where('emp_branch_id',$bid);
+        return $this->db->get('employee');
     }
 }

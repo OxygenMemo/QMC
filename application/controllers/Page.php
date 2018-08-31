@@ -9,36 +9,7 @@ class Page extends CI_Controller {
 	 * http://code.google.com/p/dompdf/wiki/Usage
 	 *
 	 */
-	public function show_session()
-	{
-		foreach ($_SESSION as $key => $value) {
-			# code...
-			echo $key." | ".$value."<br>";
-		}
-	}
-	 //test---------------
-	public function gg() {	
-		// Load all views as normal
-		$this->load->view('welcome_message');
-		// Get output html
-		$html = $this->output->get_output();
-		
-		// Load library
-		$this->load->library('Dompdf_gen');
-		// Convert to PDF
-		$this->dompdf->load_html($html);
-		$this->dompdf->setPaper('A4', 'landscape');
-
-		$this->dompdf->render();
-		$this->dompdf->stream("gg.pdf");
-		
-
-		
-	}
-	public function test()
-	{
-		$this->load->view("request_quote/welcome_message");
-	}
+	
 	public function save_quote()
 	{
 		$this->check_login();
@@ -108,6 +79,8 @@ class Page extends CI_Controller {
 	
 	private function gen_quote_no($date)
 	{
+		$this->check_login();
+
 		//strtotime("+12 Months")
 		$quote_no = "MQ";
 		$quote_no .=  substr($date->format("Y"),2);
@@ -137,6 +110,7 @@ class Page extends CI_Controller {
 	public function gen_pdf($q_no=null)
 	{
 		
+		//$this->check_login();
 
 		//check owner
 		
@@ -188,32 +162,14 @@ class Page extends CI_Controller {
 		exit(0);
 
 	}
-	public function test2(){
-		$this->load->view('test');
-        // Get output html
-        $html = $this->output->get_output();
-        // Load pdf library
-        $this->load->library('pdf');
-		
-        // Load HTML content
-        $this->dompdf->load_Html($html);
-        
-        $this->dompdf->setPaper('A4','portrait');
-		$this->dompdf->set_option('isRemoteEnabled', TRUE);
-		$this->dompdf->render();
-		
-        
-		$this->dompdf->stream("quote.pdf", array("Attachment"=>0));
-
-		
-		exit(0);
-	}
+	
 	public function index()
 	{
 		$this->load_homepage();
 	}
 	private function send_vertify_email()
 	{
+		
 		$this->check_login();
 		$digits = $_SESSION['digit'];
 		$this->load->library('email');
@@ -300,9 +256,9 @@ class Page extends CI_Controller {
 			$this->form_validation->set_rules('contact', 'contact', 'required|max_length[60]');
 			$this->form_validation->set_rules('branch', 'branch', 'required|max_length[50]');
 			$this->form_validation->set_rules('address', 'address', 'required|max_length[150]');
-			$this->form_validation->set_rules('city_id', 'city_id', 'required');
-			$this->form_validation->set_rules('postcode', 'postcode', 'required|max_length[5]');
-			$this->form_validation->set_rules('tex_id', 'tex_id', 'required|max_length[12]');
+			//$this->form_validation->set_rules('city_id', 'city_id', 'required');
+			//$this->form_validation->set_rules('postcode', 'postcode', 'required|max_length[5]');
+			$this->form_validation->set_rules('tex_id', 'tex_id', 'required|max_length[13]');
 			$this->form_validation->set_rules('tel', 'tel', 'required|max_length[12]');
 			$this->form_validation->set_rules('mobile', 'mobile', 'required|max_length[12]');
 			$this->form_validation->set_rules('fax', 'fax', 'required|max_length[12]');
@@ -310,9 +266,10 @@ class Page extends CI_Controller {
 			if ($this->form_validation->run() == FALSE)
 			{
 				//$this->form_validation->set_message('Email', 'The {field} field can not be the word "test"');
-				$this->load->model('city_model');
-				$data['cities'] = $this->city_model->getCities();
-				$this->load->view('request_quote/register',$data);
+				//$this->load->model('city_model');
+				//$data['cities'] = $this->city_model->getCities();
+				//echo "sadf";
+				$this->load->view('request_quote/register');
 				//$this->load->view('request_quote/register.php');
 				
 				//redirect(base_url()."index.php/page/load_register");
@@ -370,7 +327,7 @@ class Page extends CI_Controller {
 				'customer_mobile'   		=> $value->customer_mobile,
 				'customer_fax'     			=> $value->customer_fax,
 				'customer_email'   			=> $value->customer_email,
-				'city_id'     				=> $value->city_id,
+				
 				'customer_discount_percent' => $value->customer_discount_percent,
 				'logged_in' 				=> TRUE
 			);
@@ -388,7 +345,7 @@ class Page extends CI_Controller {
 			'customer_mobile'   		,
 			'customer_fax'     			,
 			'customer_email'   			,
-			'city_id'     				,
+			
 			'customer_discount_percent' ,
 			'logged_in' 				
 
@@ -424,7 +381,7 @@ class Page extends CI_Controller {
 			'customer_mobile'   		,
 			'customer_fax'     			,
 			'customer_email'   			,
-			'city_id'     				,
+			
 			'customer_discount_percent' ,
 			'logged_in' 				,
 			'vertify',
@@ -459,7 +416,7 @@ class Page extends CI_Controller {
 	}
 	private function check_vertify()
 	{
-		if(!empty($_SESSION['vertify']))
+		if(empty($_SESSION['vertify']))
 		{
 			redirect(base_url()."index.php/page/load_request_quote");
 		}
@@ -481,23 +438,29 @@ class Page extends CI_Controller {
 		if($this->check_register()){
 			redirect(base_url()."index.php/page/load_request_quote");
 		}
-		$this->load->model('city_model');
-		$data['cities'] = $this->city_model->getCities();
-		$this->load->view('request_quote/register',$data);
+		
+		$this->load->view('request_quote/register');
 	}
 	public function load_request_quote()
 	{
 		$this->check_login();
 		//$this->check_register();
 		//------
-		$this->load->view('request_quote/request_quote.php');
+
+		$data['products'] = $this->getProduct_for_rq_json();
+		$this->load->view('request_quote/request_quote.php',$data);
 	}
+	
 	public function load_profile()
 	{
+		$this->check_login();
+
 		$this->load->view('request_quote/profile_view');
 	}
 	public function load_quote_list()
 	{
+		$this->check_login();
+
 		$this->load->model('quote_model');
 		$data['quotes'] = $this->quote_model->getQUote_By_customerId($_SESSION['customer_id'])->result();
 		$this->load->view('request_quote/quote_list',$data);
@@ -513,4 +476,24 @@ class Page extends CI_Controller {
 		$digits = 6;
 		return rand(pow(10, $digits-1), pow(10, $digits)-1);
 	}
+	private function getProduct_for_rq_json()
+	{
+		//header('Content-Type: application/json');
+		$this->load->model('product_category_model');
+		
+		$categories = new obj;
+		$categories->categories = $this->product_category_model->getProductCategories()->result();
+		$this->load->model('product_model');
+		foreach ($categories->categories as $i => $value) {
+			
+			//foreach ($arr as $j => $value) {
+				$categories->categories[$i]->products = $this->product_model->getProduct_in_category($value->product_category_id)->result();
+			//}
+		}
+		return $categories;
+
+	}
+}
+class obj{
+
 }

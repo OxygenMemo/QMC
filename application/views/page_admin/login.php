@@ -141,7 +141,7 @@
 						?>
                         <input type="submit" name="btn_login" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Log in" >
                     </form>
-                    <a href="javascript:;" class="forget" data-toggle="modal" data-target=".forget-modal">Forgot your password?</a>
+                    
                     <hr>
         	    </div>
     		</div> <!-- /.col-xs-12 -->
@@ -164,8 +164,8 @@
 				<input type="email" name="recovery-email" id="recovery-email" class="form-control" autocomplete="off">
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-custom">Recovery</button>
+				
+				
 			</div>
 		</div> <!-- /.modal-content -->
 	</div> <!-- /.modal-dialog -->

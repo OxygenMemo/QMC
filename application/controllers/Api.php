@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Api extends CI_Controller {
+    
+   
     public function product_catagories()
 	{
         header("Access-Control-Allow-Origin: *");
@@ -37,6 +39,25 @@ class Api extends CI_Controller {
             echo null;
         }
     }
+    public function getQuoteLimit($page)
+    {
+        header('Content-Type: application/json');
+        $this->load->model("quote_model");
+        $result = $this->quote_model->getQuoteLimitPage($page*10,10,2)->result();
+        echo json_encode($result);
+    }
+    public function getNumQuote()
+    {
+        header('Content-Type: application/json');
+        $this->load->model("quote_model");
+        $result = $this->quote_model->getNumQuote()->result();
+        //echo json_encode($result);
+        $page = ceil($result[0]->numquote/10);
+        echo $page;
 
+        
+        
+    }
+//SELECT * FROM quote ORDER BY quote_id desc LIMIT 5,10 ;
 }
 ?>

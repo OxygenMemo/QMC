@@ -53,10 +53,11 @@
                                         echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
                                         echo "<td>{$value->quote_date}</td>";
                                         echo "<td>{$value->quote_ref}</td>";
+                                        
                                         switch($value->quote_status){
-                                            case 0:echo "<td>not vertify</td>"; break;
+                                            case 0: echo "<td>not vertify</td>"; break;
                                             case 1: echo "<td>working</td>"; break;
-                                            case 2: echo "<td>complete</td>"; break;
+                                            case 2: echo "<td><a href='$value->recive_certificate_url'>recive</a></td>"; break;
                                         }
                                         echo "</tr>";
                                     }

@@ -1,3 +1,4 @@
+<?php if(empty($qid))die();  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,48 +36,38 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>Edit Employee</h2>
+                        
+                        <h2>recive detail </h2>
                         <p></p>
                         
                         <div class="article" style="text-align: left;" >
-                        <?= form_open(base_url()."index.php/page_admin/edit_employee/".$eid); ?>
-                                <input type="hidden" name="employee_id" value="<?= $eid ?>">
-                                <div class="form-group">
-                                    <label for="employee_name">name: </label>
-                                    <input type="text" class="form-control" id="employee_name"
-                                    placeholder="employee name" name="employee_name" maxlength="70" required 
-                                    value="<?= $employee[0]->employee_name ?>">
-                                </div>
-                                <div class="form-group">
-                                <label for="branch_id">Select Branch (select one):</label>
-                                <select class="form-control" id="branch_id" name="branch_id" required>
-                                    <?php 
-                                    foreach ($branchs as $key => $value) {
-                                        if($employee[0]->emp_branch_id == $value->emp_branch_id){
-                                            echo "<option selected value='{$value->emp_branch_id}'>".htmlspecialchars($value->emp_branch_name)."</option>";
-                                        }else{
-                                            
-                                            echo "<option value='{$value->emp_branch_id}'>".htmlspecialchars($value->emp_branch_name)."</option>";
-                                        }
-                                    }
-                                    ?>
-                                    
-                                </select>
-                                </div>
+                            <div  class="col-sm-7">
+                                <fieldset>
+                                <legend><h3><a href='<?= base_url() ?>index.php/page/gen_pdf/<?= $recieve[0]->quote_no ?>'><?= $recieve[0]->quote_no ?></a></h3></legend>
+                                Code : <p><?= htmlspecialchars($recieve[0]->customer_code) ?></p>
+                                Company : <p><?= htmlspecialchars($recieve[0]->customer_company) ?></p>
+                                tex id :<p><?= htmlspecialchars($recieve[0]->customer_texid) ?></p>
+                                Contact : <p><?= htmlspecialchars($recieve[0]->customer_contact) ?></p>
+                                Branch : <p><?= htmlspecialchars($recieve[0]->customer_branch) ?></p>
+                                Email :<p><?= htmlspecialchars($recieve[0]->customer_email) ?></p>
+                                address :<p><?= htmlspecialchars($recieve[0]->customer_address)." ".htmlspecialchars($recieve[0]->customer_postcode) ?></p>
+                                tel :<p><?= htmlspecialchars($recieve[0]->customer_tel) ?></p>
+                                mobile :<p><?= htmlspecialchars($recieve[0]->customer_mobile) ?></p>
+                                fax :<p><?= htmlspecialchars($recieve[0]->customer_fax) ?></p>
                                 
-                                <div class="form-group">
-                                <label for="employee_status">Select status (select one):</label>
-                                <select class="form-control" id="employee_status" name="employee_status" required>
-                                    <option value="1" <?php if($employee[0]->employee_status == 1) echo "selected" ?>>staying</option>
-                                    <option value="2" <?php if($employee[0]->employee_status == 2) echo "selected" ?>>quit</option>
-                                    
-                                </select>
-                                </div>
-                                <a href=""><button class="btn btn-default"  type="button">new password </button></a>
-                                <br>
-                                <br>
-                                <button name="submit" type="submit" class="btn btn-default" value="ok">Edit</button>
-                        </form>
+                                
+                                
+                                </fieldset>
+                            </div>
+                            <div class="col-sm-5">
+                                
+                                <fieldset>
+                                <legend><a href="<?= $recieve[0]->recive_certificate_url ?>"><h3>certificate</h3></a></legend>
+                                    expiry :<p><?= htmlspecialchars($recieve[0]->recive_certificate_expiry) ?></p>
+                                    issue :<p><?= htmlspecialchars($recieve[0]->recive_certificate_issue) ?></p>
+                                </fieldset>
+                            </div>
+                                
                             <div class="clr"></div>
                         </div>
                 
@@ -84,6 +75,7 @@
                     </div>
                 </div>
             <div class="article">
+            
 
                 <div class="clr"></div>
                 <p>&nbsp;</p>

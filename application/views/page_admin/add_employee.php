@@ -51,7 +51,7 @@
                                 <select class="form-control" id="branch_id" name="branch_id" required>
                                     <?php 
                                     foreach ($branchs as $key => $value) {
-                                        echo "<option value='{$value->emp_branch_id}'>{$value->emp_branch_name}</option>";
+                                        echo "<option value='{$value->emp_branch_id}'>".htmlspecialchars($value->emp_branch_name)."</option>";
                                     }
                                     ?>
                                     

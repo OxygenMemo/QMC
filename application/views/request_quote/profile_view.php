@@ -103,7 +103,7 @@
                                         value="<?= htmlspecialchars($_SESSION['customer_fax']);?>" disabled>
                                 </div>
                                 
-                                <button name="submit" type="submit" class="btn btn-default">Submit</button>
+                              
                                
                             
                             <div class="clr"></div>

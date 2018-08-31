@@ -35,60 +35,29 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>Employee </h2>
+                        <h2>Edit product</h2>
+                        <p></p>
                         
-                        <form class="form-inline" action="/action_page.php">
-                            <div class="form-group">
-                                <label for="search">search : </label>
-                                <input type="text"  class="form-control" name="search" id="search">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                        </form> 
-                        <br>
-                        <a href="<?= base_url() ?>index.php/page_admin/add_employee">
-                            <button type="button" class="btn">
-                            <span class="glyphicon glyphicon-plus"></span> add employee
-                          </button>
-                        </a>
                         <div class="article" style="text-align: left;" >
-                        <table class="table">
-                            
-                                <tr>
-                                    <th>no</th>
-                                    <th>name</th>
-                                    <th>branch</th>
-                                    <th>username</th>
-                                    <th>status</th>
-                                    
-                                    <th colspan="2">option</th>
-                                </tr>
-                                <?php
-                                    foreach ($emps as $key => $value) {
-                                       
-                                            echo "<tr>";
-                                            echo "<td>".htmlspecialchars($value->employee_no)."</td>";
-                                            echo "<td>".htmlspecialchars($value->employee_name)."</td>";
-                                            echo "<td>".htmlspecialchars($value->emp_branch_name)."</td>";
-                                            echo "<td>".htmlspecialchars($value->employee_username)."</td>";
-                                            if($value->employee_status == 1)
-                                                echo "<td>staying</td>";
-                                            else
-                                                echo "<td>quit</td>";
-                                            
-                                            echo "<td><a href=".base_url() ."index.php/page_admin/edit_employee/". $value->employee_id ."><span class='glyphicon glyphicon-pencil'></span></a></td>";
-                                            
-                                            echo "</tr>";
-                                        }
-                                        
-                                        
-                                    
-
-                                ?>
-
-
-                            
+                        <?= form_open(base_url()."index.php/page_admin/edit_product/{$pid}"); ?>
                                 
+                                <div class="form-group">
+                                    
+                                    <label for="product_name">product name: </label>
+                                    <input type="text" class="form-control" id="product_name"
+                                    placeholder="product name" name="product_name" maxlength="70"
+                                    value="<?= htmlspecialchars($product[0]->product_name) ?>" required >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="product_price">productprice : </label>
+                                    <input type="number" class="form-control" id="product_price" 
+                                    placeholder="product price" name="product_price" maxlength="20" 
+                                    value="<?= htmlspecialchars($product[0]->product_price) ?>" required >
+                                </div>
+                               
+                                <button name="submit" type="submit" class="btn btn-default" value="ok">Submit</button>
+                        </form>
                             
                             <div class="clr"></div>
                         </div>

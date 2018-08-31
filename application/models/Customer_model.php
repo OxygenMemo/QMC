@@ -29,7 +29,7 @@ class Customer_model extends CI_Model
             'customer_mobile' => $this->input->post("mobile"),
             'customer_fax' => $this->input->post("fax"),
             'customer_email' => $_SESSION['customer_email'],
-            'city_id' => $this->input->post("city_id"),
+            
             'customer_discount_percent' => 0
         );
         

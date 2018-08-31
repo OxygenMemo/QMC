@@ -205,15 +205,17 @@
 	<!-- footer -->
 	<table style="margin-left: 50px;width: 80%">
 		<tr>
-			<td style="width: 200px">___________________</td>
-			<td style="text-align:right;"></td>
+			<td style="width: 200px"></td>
+			<td  style="text-align:right;" rowspan=2><img src="http://www.qmcal.com/img/sign2.png" width='200' alt="" /></td>
+		</tr>
+		
+		<tr>
+			<td style="width: 200px;font-size: 13px"><div style="padding-buttom:10px">___________________</div><br>Client confirmation (sign)</td>
+			
 		</tr>
 		<tr>
-			<td style="width: 200px">Client confirmation (sign)</td>
-			<td style="text-align:right;"><i style="font-size: 13px">Issued by: Saowalak S.</i></td>
-		</tr>
-		<tr>
-			<td>Date____/____/_____</td>
+			<td style="font-size: 13px">Date____/____/_____</td>
+			<td style="text-align:right;padding-right: 40px"><i style="font-size: 13px">Issued by: QMCal admins</i></td>
 		</tr>
 	</table>
 	<br><br>

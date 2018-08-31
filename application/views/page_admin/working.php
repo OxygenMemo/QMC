@@ -35,8 +35,8 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>quote </h2>
-                        
+                        <h2>work order status </h2>
+                        <!--
                         <form class="form-inline" action="/action_page.php">
                             <div class="form-group">
                                 <label for="search">search : </label>
@@ -45,6 +45,7 @@
                             
                             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                         </form> 
+                        -->
                         <br>
                        
                         <div class="article" style="text-align: left;" >
@@ -53,19 +54,54 @@
                                 <tr>
                                     <th>detail</th>
                                     <th>status</th>
-                                    
-                                    <th colspan="2">option</th>
+                                    <th>Employee</th>
+                                    <th>option</th>
                                 </tr>
                                 <?php
                                     if(!empty($workorder)){
                                         foreach ($workorder as $key => $value) {
                                             
                                             echo "<tr>";
-
-                                            echo "<td>{$value}</td>";
-                                            echo "<td>{$value}</td>";
-                                            echo "<td>{$value}</td>";
-                                            echo "<td>{$value}</td>";
+                                            echo "<td>".htmlspecialchars($value->workorder_detail_name)."</td>";
+                                            $status =$value->workorder_status == 0 ? "incomplete" : "complete" ;
+                                            echo "<td>{$status}</td>";
+                                            if(empty($value->employee_id)){ //dont have emp
+                                                echo "<td><form method='post' action='".base_url()."index.php/page_admin/addEmptoWorking'>";
+                                                echo "<input type='hidden' value='$qid' name='qid' />";
+                                                echo "<input type='hidden' value='$value->workorder_id' name='woid' />";
+                                                echo "<select name='empid' required>";
+                                                echo "<option value=''>--- pleaes select employee ---</option>";
+                                                foreach ($employee as $key => $r) {
+                                                    echo "<option value='{$r->employee_id}'>".$r->employee_name."</option>";
+                                                }
+                                                echo "</select>";
+                                                echo "<input onclick='return confirm(`you confirm ?`)' type=submit value=select>";
+                                                echo "</form></td>"; //employee
+                                            }else{
+                                                echo "<td>$value->employee_name</td>";
+                                            }
+                                            
+                                            echo "<td>";
+                                            if($value->workorder_status == 0)
+                                            {
+                                                echo "<form action='".base_url()."index.php/page_admin/admin_wod_complete' method='post'>";
+                                                echo "<input type='hidden' name='wodid' value='{$value->workorder_id}'>";
+                                                echo "<input type='hidden' name='qid' value='{$qid}'>";
+                                                
+                                                echo "<button type='submit' onclick='return confirm(`Are you want to change status to complete ?`)'><span class='glyphicon glyphicon-ok'></span></button>";
+                                                
+                                                echo "</form>";
+                                            }else{
+                                                /*
+                                                echo "<form action='".base_url()."index.php/page_admin/admin_wod_not_complete' method='post'>";
+                                                echo "<input type='hidden' name='wodid' value='{$value->workorder_id}'>";
+                                                echo "<input type='hidden' name='qid' value='{$qid}'>";
+                                                echo "<button type='submit' onclick='return confirm(`Are you want to change status to not complete ?`)'><span class='glyphicon glyphicon-remove'></span></button>";
+                                                
+                                                echo "</form>";
+                                                */
+                                            }
+                                            echo "</td>";
                                             echo "</tr>";
                                         }
                                     }else{
@@ -79,7 +115,7 @@
 
                             </table>
                                 
-                            
+                            <button onclick="window.history.back();">back</button>
                             <div class="clr"></div>
                         </div>
                 
@@ -109,6 +145,7 @@
 	<script src="<?= base_url() ?>share/js/stellar.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?= base_url() ?>share/js/custom.js"></script>
+    
 
 </body>
 </html>

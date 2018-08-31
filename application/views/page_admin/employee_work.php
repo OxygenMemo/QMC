@@ -29,7 +29,30 @@
 </head>
 
 <body data-spy="scroll">
-        <?php require('template/menu.php'); ?>
+       
+<div class="container">
+                <ul id="gn-menu" class="gn-menu-main">
+                    <li class="gn-trigger">
+                        <a class="gn-icon gn-icon-menu"><span>Menu</span></a>
+                        <nav class="gn-menu-wrapper">
+                            <div class="gn-scroller">
+                                <ul class="gn-menu">
+                                    
+                                    <li><a href="" class="gn-icon gn-icon-download"><?= $_SESSION['employee_name'] ?></a></li>
+                                   
+                                </ul>
+                            </div><!-- /gn-scroller -->
+                        </nav>
+                    </li>
+                    <li><img src="<?= base_url() ?>share/img/logo-mc.gif" width="176" height="54" longdesc="http://measurementcalibration.com"></li>
+                    <li><ul class="company-social">
+                                <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                <li class="social-dribble"><a href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>
+                                <li class="social-google"><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>	</li>
+                </ul>
+        </div>
         <section id="quote" class="home-section text-center">
             <div class="container">
             <div class="row">
@@ -54,9 +77,9 @@
                                 <tr>
                                     <th>quote no</th>
                                     <th>company</th>
-                                    <th>total + tex rate</th>
-                                    <th>status</th>
-                                    <th colspan="3">option</th>
+                                    <th>work</th>                                
+                                    <th>option</th>
+                                    
                                 </tr>
                                 <?php
                                 //echo json_encode($quotes);
@@ -68,40 +91,24 @@
                                         echo "<tr>";
                                         echo "<td><a href='".base_url()."index.php/page/gen_pdf/{$value->quote_no}'>{$value->quote_no}</a></td>";
                                         echo "<td>".htmlspecialchars($value->customer_company)."</td>";
-                                        echo "<td>{$value->total}</td>";
-                                        switch($value->quote_status){
-                                            case 0:
-                                                echo "<td>not vertify</td>"; 
-                                                echo "<td>";
-                                                echo "<form action='".base_url()."index.php/page_admin/changeStatusQuote_quote_to_working' method='post'>";
-                                                echo "<input type='hidden' name='qid' value='{$value->quote_id}'>";
-                                                echo "<button type='submit' onclick='return confirm(`Are you sure for change status to working?`)'>"."<span class='glyphicon glyphicon-ok'></span>"."</button>";
+                                        echo "<td>{$value->workorder_detail_name}</td>";
+                                        switch($value->workorder_status){
+                                            
+                                            case 0: 
+                                            echo "<td>";
+                                            echo "<form action='".base_url()."index.php/page_admin/emp_wod_complete' method='post'>";
+                                                echo "<input type='hidden' name='wodid' value='{$value->workorder_id}'>";
                                                 
-                                                echo "</form>";
-                                                echo "</td>";
+                                                echo "<button type='submit' onclick='return confirm(`Are you want to change status to complete ?`)'><span class='glyphicon glyphicon-ok'></span></button>";
+                                                
+                                                echo "</form>";        
+                                            echo "</td>"; 
+                                            
                                             break;
-                                            case 1: echo "<td><a href='".base_url()."index.php/page_admin/working/{$value->quote_id}'>working</a></td>"; break;
-                                            case 2: echo "<td>complete</td>"; break;
+                                            //case 2: echo "<td>complete</td>"; break;
                                         }
-                                        if($value->total_workorder_status == 3)
-                                        {
-                                            echo "<td>
-                                            <form action='".base_url()."index.php/page_admin/create_recive' method='post'>
-                                            <input type='hidden' name='qid' value='{$value->quote_id}'>
-                                            <input type='hidden' name='qno' value='{$value->quote_no}'>
-                                            <button name='submit' type='subbmit' onclick='return confirm(`you want to create recieve {$value->quote_no}?`)' ><span class='glyphicon glyphicon-ok'></span><button>
-                                            </form>
-                                            </td>";
-                                        }else{
-                                            echo "<td><button disabled><span class='glyphicon glyphicon-remove'></span></button></td>";
-                                        }
+                                        
                                         //echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
-                                        echo "<td>
-                                                <form action='".base_url()."index.php/page_admin/delete_quote_workorder' method='post'>
-                                                <input type='hidden' name='qid' value='{$value->quote_id}'>
-                                                <button  name='submit' type='subbmit' onclick='return confirm(`Are you want to delete {$value->quote_no}?`)'><span class='glyphicon glyphicon-trash'></span></button>
-                                                </form>
-                                            </td>";
                                         
 
                                         echo "</tr>";
@@ -109,7 +116,7 @@
                                     }
                                 }
                                 ?>
-;
+
 
                             </table>
                                 
