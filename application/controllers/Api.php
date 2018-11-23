@@ -2,7 +2,22 @@
 
 class Api extends CI_Controller {
     
-   
+   public function product_json()
+   {
+    header('Content-Type: application/json');
+        $this->load->model('product_category_model');
+            
+        $categories = new obj;
+        $categories->categories = $this->product_category_model->getProductCategories()->result();
+        $this->load->model('product_model');
+        foreach ($categories->categories as $i => $value) {
+            
+            //foreach ($arr as $j => $value) {
+                $categories->categories[$i]->products = $this->product_model->getProduct_in_category($value->product_category_id)->result();
+            //}
+        }
+        echo json_encode($categories);
+   }
     public function product_catagories()
 	{
         header("Access-Control-Allow-Origin: *");
@@ -59,5 +74,8 @@ class Api extends CI_Controller {
         
     }
 //SELECT * FROM quote ORDER BY quote_id desc LIMIT 5,10 ;
+}
+class obj{
+
 }
 ?>

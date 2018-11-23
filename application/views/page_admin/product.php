@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,7 +61,7 @@
                                             echo "<td>
                                                 <form method='post' action='".base_url()."index.php/page_admin/change_product_status_remove'>
                                                     <input type='hidden' name='pid' value='{$row->product_id}'/>
-                                                    <button onclick='return confirm('you want to delete ".htmlspecialchars($row->product_no)." ?')' type='submit'><span class='glyphicon glyphicon-trash'></span></button>
+                                                    <button onclick='return confirm(`you want to delete ".htmlspecialchars($row->product_no)." ?`)' type='submit'><span class='glyphicon glyphicon-trash'></span></button>
                                                 </form>
                                                 </td>";
                                             echo "</tr>";

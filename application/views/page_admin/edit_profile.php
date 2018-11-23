@@ -1,4 +1,3 @@
-<?php if(empty($qid))die();  ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,41 +35,40 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        
-                        <h2>receive detail </h2>
+                        <h2>Your profile</h2>
                         <p></p>
-                        
+                        <?php echo form_open(base_url()."index.php/page_admin/edit_profile"); ?>
                         <div class="article" style="text-align: left;" >
-                            <div  class="col-sm-7">
-                                <fieldset>
-                                <legend><h3><a href='<?= base_url() ?>index.php/page/gen_pdf/<?= $recieve[0]->quote_no ?>'><?= $recieve[0]->quote_no ?></a></h3></legend>
-                                Code : <p><?= htmlspecialchars($recieve[0]->customer_code) ?></p>
-                                Company : <p><?= htmlspecialchars($recieve[0]->customer_company) ?></p>
-                                tex id :<p><?= htmlspecialchars($recieve[0]->customer_texid) ?></p>
-                                Contact : <p><?= htmlspecialchars($recieve[0]->customer_contact) ?></p>
-                                Branch : <p><?= htmlspecialchars($recieve[0]->customer_branch) ?></p>
-                                Email :<p><?= htmlspecialchars($recieve[0]->customer_email) ?></p>
-                                address :<p><?= htmlspecialchars($recieve[0]->customer_address)." ".htmlspecialchars($recieve[0]->customer_postcode) ?></p>
-                                tel :<p><?= htmlspecialchars($recieve[0]->customer_tel) ?></p>
-                                mobile :<p><?= htmlspecialchars($recieve[0]->customer_mobile) ?></p>
-                                fax :<p><?= htmlspecialchars($recieve[0]->customer_fax) ?></p>
-                                
-                                
-                                
-                                </fieldset>
-                            </div>
-                            <div class="col-sm-5">
-                                
-                                <fieldset>
-                                <legend><a href="<?= $recieve[0]->recive_certificate_url ?>"><h3>certificate</h3></a></legend>
-                                    expiry :<p><?= htmlspecialchars($recieve[0]->recive_certificate_expiry) ?></p>
-                                    issue :<p><?= htmlspecialchars($recieve[0]->recive_certificate_issue) ?></p>
-                                </fieldset>
-                            </div>
-                                
-                            <div class="clr"></div>
+                        
+                                <div class="form-group">
+                                    <label for="employee_no">employee_no :  <?php //echo form_error('employee_no'); ?></label>
+                                    <input type="text" class="form-control" id="employee_no" 
+                                    placeholder="Your employee no" name="employee_no" maxlength="5" 
+                                    value="<?= htmlspecialchars($_SESSION['employee_no']);?>"  >
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee_name">employee_name: </label>
+                                    <input type="text" class="form-control" id="employee_name"
+                                    placeholder="Your company name" name="employee_name" maxlength="80" 
+                                    value="<?= htmlspecialchars($_SESSION['employee_name']); ?>"  >
+                                </div>
+                                <div class="form-group">
+                                    <label for="employee_username">employee_username : </label>
+                                    <input type="text" class="form-control" id="employee_username" 
+                                    placeholder="Contact" name="employee_username" maxlength="60" 
+                                    value="<?= htmlspecialchars($_SESSION['employee_username']) ?>" disabled >
+                                </div>
+                                <div class="form-group">
+                                    <label for="emp_branch_name">emp_branch_name : </label>
+                                    <input type="text" class="form-control" id="emp_branch_name" 
+                                    placeholder="Your branch" name="emp_branch_name" maxlength="50" 
+                                    value="<?=  htmlspecialchars($_SESSION['emp_branch_name']);?>" disabled>
+                                </div>
+                            
+                            
+                            <div class="clr"><input type="submit" name="btn_edit" value="save" class="btn btn-info"/></div>
                         </div>
-                
+                        </form>
             
                     </div>
                 </div>

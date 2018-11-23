@@ -10,11 +10,13 @@
                                     <li><a href="<?= base_url() ?>index.php/page/load_profile" class="gn-icon gn-icon-download">Profile</a></li>
                                     <li><a href="<?= base_url() ?>index.php/page/load_quote_list" class="gn-icon gn-icon-archive">Quote list</a></li>	
                                     <li><a href="<?= base_url() ?>index.php/page/load_request_quote" class="gn-icon gn-icon-archive">Request quote</a></li>
+                                    <li><a onclick="return confirm(`Do you want to logout ?`)" href="<?= base_url() ?>index.php/page/logout" class="gn-icon gn-icon-archive">logout</a></li>
+                                    
                                 </ul>
                             </div><!-- /gn-scroller -->
                         </nav>
                     </li>
-                    <li><img src="<?= base_url() ?>share/img/logo-mc.gif" width="176" height="54" longdesc="http://measurementcalibration.com"></li>
+                    <li><a href="<?= base_url() ?>index.php/page"><img src="<?= base_url() ?>share/img/logo-mc.gif" width="176" height="54" longdesc="http://measurementcalibration.com"/></a></li>
                     <li><ul class="company-social">
                                 <li class="social-facebook"><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
                                 <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>

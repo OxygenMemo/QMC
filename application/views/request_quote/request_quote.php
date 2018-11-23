@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +27,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		
     <style>
+        .productline tr th {
+            text-align: center;
+
+        }
     </style>
 </head>
 
@@ -45,7 +49,7 @@
                                 <h3>Product : </h3>
                                 <hr>
                                 
-                                <table class="table">
+                                <table class="table productline">
                                     
                                     <tr>
                                         <th width="100px">type</th>
@@ -72,7 +76,8 @@
                                                 <p id="unitprice">0.00</p>
                                             </td>
                                             <td>
-                                                <input onkeyup="change_quantity(this)" name="quantity[]" value="1"  width="50" type="number" required min="1" max="100">
+                                                <input onchange="change_quantity(this)" onkeyup="change_quantity(this)" name="quantity[]" value="1"  width="50" type="number" required min="1" max="100" 
+                                                onKeyPress="if(this.value.length==2 &&event.keyCode != 8) return false;">
                                             </td>
                                             <td>
                                                 <p class="amount">0.00</p>
@@ -113,7 +118,7 @@
                                 </table>
 
                                 <hr>
-                                <p>กรุณาตรวจสอบรายการให้พูกต้องก่อนยืนยัน</p>
+                                <p>กรุณาตรวจสอบรายการให้ถูกต้องก่อนยืนยัน</p>
                                 <br>
                                 <input id="submit" type="submit" value="submit">
                             </form>
@@ -135,8 +140,9 @@
         <script>
             $(document).ready(function(){
                 
-                    $.get("http://localhost:8080/QMC/index.php/api/product_catagories", function(data, status){
-                    console.log("Data: " + data + "\nStatus: " + status +"\ndatal "+data.length);
+                    $.get("<?= base_url() ?>index.php/api/product_catagories", function(data, status){
+
+                    //console.log("Data: " + data + "\nStatus: " + status +"\ndatal "+data.length);
                     let catagory = JSON.parse(data);
                         let html2 ="";
                     for(i=0;i<catagory.length;i++){
@@ -144,7 +150,6 @@
                     }
                     
                     $(".category").after(html2);
-
                     $("#btnadd").click(function(){
                         let html = `<tr>
                                             <td>
@@ -162,7 +167,7 @@
                                                 <p id="unitprice">0.00</p>
                                             </td>
                                             <td>
-                                                <input onkeyup="change_quantity(this)" name="quantity[]" value="1"  width="50" type="number" required min="1" max="100">
+                                                <input onchange="change_quantity(this)" onkeyup="change_quantity(this)" name="quantity[]" value="1"  width="50" type="number" required min="1" max="100">
                                             </td>
                                             <td>
                                                 <p class="amount">0.00</p>
@@ -178,21 +183,27 @@
                 });
                 
             });
+        
             function change_category(tag)
             {
-                
                 $.get("<?= base_url() ?>index.php/api/product_in_catagories/"+$(tag).val(), function(data, status){
                     //console.log("Data: " + data + "\nStatus: " + status +"\ndatal "+data.length);
+                    if(data){
+                        
                     let product = JSON.parse(data);
                         let tem ="";
                     for(i=0;i<product.length;i++){
                         tem+= `<option value='${product[i].product_id}'>${product[i].product_category_id+product[i].product_no+" "+product[i].product_name}</option>`;
+                    }
+                    if(!tem){
+                        tem = `<option value=''>---- กรุณาเลือก -----</option>`;
                     }
                     let description = ` <select onchange="chenge_product(this)" name="product[]" id="">${tem}</select>`;
                     
                     $(tag).parent().next().html(description);
                     chenge_product($(tag).parent().next().children())
                     
+                    }
                 });
             }
             function chenge_product(tag)
@@ -201,7 +212,7 @@
                 $.get("<?= base_url() ?>index.php/api/getPriceProduct/"+$(tag).val(), function(data, status){
                     //console.log("Data: " + data + "\nStatus: " + status +"\ndatal "+data.length);
                     let product = JSON.parse(data);
-                        
+                    
                     let description = product[0].product_price;
                     
                     $(tag).parent().next().html("<p >"+description+"</p>");

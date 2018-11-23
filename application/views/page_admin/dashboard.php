@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,14 +37,7 @@
                     <div class="section-heading req-quote">
                         <h2>dashboard </h2>
                         <p>New quote to day <?= $date ?></p>
-                        <form class="form-inline" action="/action_page.php">
-                            <div class="form-group">
-                                <label for="search">search : </label>
-                                <input type="text"  class="form-control" name="search" id="search">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                        </form> 
+                        
                         <br>
                        
                         <div class="article" style="text-align: left;" >
@@ -83,13 +76,13 @@
                                                 {
                                                     echo "<td>
                                                     <form action='".base_url()."index.php/page_admin/create_recive' method='post'>
-                                                    <input type='hidden' name='qid' value='{$value->quote_id}'>
-                                                    <input type='hidden' name='qno' value='{$value->quote_no}'>
+                                                    <input type='hidden' name='qid' value='{$value->quote_id}'/>
+                                                    <input type='hidden' name='qno' value='{$value->quote_no}'/>
                                                     <button name='submit' type='subbmit' onclick='return confirm(`you want to create recive {$value->quote_no}?`)' ><span class='glyphicon glyphicon-ok'></span></button>
                                                     </form>
                                                     </td>";
                                                 }else{
-                                                    echo "<td><button disabled><span class='glyphicon glyphicon-remove'></span><button></td>";
+                                                    echo "<td><button disabled><span class='glyphicon glyphicon-remove'></span></button></td>";
                                                 }
                                                 break;
                                                 case 2: echo "<td><a href='".base_url()."index.php/page_admin/recieve_detail/{$value->quote_id}'>receive</a></td>"; break;

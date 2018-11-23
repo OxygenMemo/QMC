@@ -9,7 +9,46 @@ class Page extends CI_Controller {
 	 * http://code.google.com/p/dompdf/wiki/Usage
 	 *
 	 */
-	
+	public function edit_profile(){
+		$this->check_login();
+		$this->check_vertify();
+		if($this->input->post("btn_edit") == null){
+			$this->load->view('request_quote/edit_profile');
+		}else{
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('customer_code', 'customer_code', 'required|max_length[4]');
+			$this->form_validation->set_rules('customer_company', 'customer_company', 'required|max_length[80]');
+			
+			$this->form_validation->set_rules('customer_contact', 'customer_contact', 'required|max_length[60]');
+			$this->form_validation->set_rules('customer_branch', 'customer_branch', 'required|max_length[50]');
+			$this->form_validation->set_rules('customer_address', 'customer_address', 'required|max_length[150]');
+			$this->form_validation->set_rules('customer_texid', 'customer_texid', 'required|max_length[13]');
+			$this->form_validation->set_rules('customer_tel', 'customer_tel', 'required|max_length[12]');
+			$this->form_validation->set_rules('customer_mobile', 'customer_mobile', 'required|max_length[12]');
+			$this->form_validation->set_rules('customer_fax', 'customer_fax', 'required|max_length[12]');
+			if ($this->form_validation->run() == FALSE)
+			{
+				$this->load->view('request_quote/register');
+			}
+			else
+			{
+				$this->load->model('customer_model');
+				$this->customer_model->update();
+				//$this->create_afterLogin_session($_SESSION['customer_email']);
+				$_SESSION['customer_code'] = $this->input->post('customer_code');
+				$_SESSION['customer_contact'] = $this->input->post('customer_contact');
+				$_SESSION['customer_company'] = $this->input->post('customer_company');
+				$_SESSION['customer_branch'] = $this->input->post('customer_branch');
+				$_SESSION['customer_address'] = $this->input->post('customer_address');
+				$_SESSION['customer_texid'] = $this->input->post('customer_texid'); 
+				$_SESSION['customer_tel'] = $this->input->post('customer_tel'); 
+				$_SESSION['customer_mobile'] = $this->input->post('customer_mobile'); 
+				$_SESSION['customer_fax'] = $this->input->post('customer_fax'); 
+				redirect(base_url()."index.php/page/load_profile");
+
+			}
+		}
+	}
 	public function save_quote()
 	{
 		$this->check_login();
@@ -345,7 +384,6 @@ class Page extends CI_Controller {
 			'customer_mobile'   		,
 			'customer_fax'     			,
 			'customer_email'   			,
-			
 			'customer_discount_percent' ,
 			'logged_in' 				
 
@@ -390,12 +428,13 @@ class Page extends CI_Controller {
 
 			);
 		$this->session->unset_userdata($array_items);
+		redirect(base_url()."index.php#quote");
 	}
 	private function check_login()
 	{
 		if(empty($_SESSION['logged_in']))
 		{
-			redirect(base_url()."#quote");
+			redirect(base_url()."index.php#quote");
 		}
 	}
 	private function check_register(){
@@ -418,8 +457,12 @@ class Page extends CI_Controller {
 	{
 		if(empty($_SESSION['vertify']))
 		{
-			redirect(base_url()."index.php/page/load_request_quote");
+			redirect(base_url()."index.php/page/load_vertify_email");
 		}
+	}
+	private function check_not_vertify()
+	{
+		
 	}
 	
 	//----------- Load view page ------------
@@ -446,6 +489,7 @@ class Page extends CI_Controller {
 		$this->check_login();
 		//$this->check_register();
 		//------
+		$this->check_vertify();
 
 		$data['products'] = $this->getProduct_for_rq_json();
 		$this->load->view('request_quote/request_quote.php',$data);
@@ -454,13 +498,13 @@ class Page extends CI_Controller {
 	public function load_profile()
 	{
 		$this->check_login();
-
+		$this->check_vertify();
 		$this->load->view('request_quote/profile_view');
 	}
 	public function load_quote_list()
 	{
 		$this->check_login();
-
+		$this->check_vertify();
 		$this->load->model('quote_model');
 		$data['quotes'] = $this->quote_model->getQUote_By_customerId($_SESSION['customer_id'])->result();
 		$this->load->view('request_quote/quote_list',$data);

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -371,7 +371,9 @@
 	    <div class="row">
 	      <div class="col-lg-8 col-lg-offset-2">
 	        <div class="section-heading req-quote">
-	          <h2>Request Quote</h2>
+						<h2>Request Quote</h2>
+						<?php if(empty($_SESSION['logged_in']) && empty($_SESSION['vertify'])){ ?>
+						
 	          <p>กรอก Email ในฟอร์มข้างล่างนี้หรือโทร 0911306300 เพื่อขอใบเสนอราคา</p>
 	          <div class="article" >
 	            <?php echo form_open(base_url()."index.php/page/login"); ?>
@@ -379,7 +381,20 @@
 								<input type="submit" value="submit"><br>
 								<?php echo form_error('email', '<p class="form_error">', '</p>'); ?>
 							</form>
-        
+							<?php }else{
+								echo "<h4>ขณะนี้คุณกำลังอยู่ในระบบ</h4>";
+								
+								echo "<p>{$_SESSION['customer_email']}</p>";
+								if(empty($_SESSION['vertify']) ){
+									echo "<a href='".base_url()."index.php/page/load_vertify_email'><button>vertify</button></a>  
+									<a onclick='confirm(`DOu you want to logout ?`)' href='".base_url()."index.php/page/logout'><button>logout</button></a>";
+								}else{
+									echo "<a href='".base_url()."index.php/page/load_request_quote'><button>request quote</button></a>
+									<a onclick='confirm(`DOu you want to logout ?`)' href='".base_url()."index.php/page/logout'><button>logout</button></a>";
+								}
+
+
+							}?>
           <div class="clr"></div>
         </div>
               </p>
@@ -434,7 +449,7 @@
   <abbr title="Phone">T:</abbr> +66(0) 33005109, (0)21076977, (0)889050555
 					  F:+66(0)21018913<br>
 					  <a href="mailto:#">Email: mc@quality-thailand.com</a>/ qmc.thai@gmail.com<br />
-			      <a href="mailto:#"> Line: qmcthai </a>					</p>
+			      <a href="mailto:#"> Line: qmcal </a>					</p>
 					<p><a href="http://measurementcalibration.com/img/center.gif">Click!&gt;&gt; Map</a>- <a href="<?= base_url() ?>share/img/MC-sales.gif">Get e-namecard</a></p>
 				</div>
 			</div>	

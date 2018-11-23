@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,6 +39,7 @@
                                 <ul class="gn-menu">
                                     
                                     <li><a href="" class="gn-icon gn-icon-download"><?= $_SESSION['employee_name'] ?></a></li>
+                                    <li><a onclick="return confirm('you want to logout ?')" href="<?= base_url() ?>index.php/page_admin/logout" class="gn-icon glyphicon-expand">Logout</a></li>
                                    
                                 </ul>
                             </div><!-- /gn-scroller -->
@@ -50,6 +51,7 @@
                                 <li class="social-twitter"><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
                                 <li class="social-dribble"><a href="#" target="_blank"><i class="fa fa-dribbble"></i></a></li>
                                 <li class="social-google"><a href="#" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+
                             </ul>	</li>
                 </ul>
         </div>

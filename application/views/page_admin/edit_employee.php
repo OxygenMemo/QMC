@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +72,7 @@
                                     
                                 </select>
                                 </div>
-                                <a href=""><button class="btn btn-default"  type="button">new password </button></a>
+                                <a href="<?= base_url() ?>index.php/page_admin/new_password/<?= $eid ?>"><button class="btn btn-default"  type="button">new password </button></a>
                                 <br>
                                 <br>
                                 <button name="submit" type="submit" class="btn btn-default" value="ok">Edit</button>

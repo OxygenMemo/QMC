@@ -1,9 +1,83 @@
 <?php
 class Page_admin extends CI_Controller 
 {
+
     public function index()
     {
+        
+        
         redirect(base_url().'index.php/page_admin/login');
+    }
+    public function new_password($eid=null){
+        $this->check_all();
+
+        $data['eid'] = $eid;
+        if($this->input->post('submit')==null){
+
+            $this->load->model('employee_model');
+            $data['employee'] = $this->employee_model->getOneEmployee($eid)->result(); 
+            $this->load->view('page_admin/new_password',$data);
+        }else{
+            $eid = $this->input->post('employee_id');
+
+            $this->load->library('form_validation');
+
+            $this->form_validation->set_rules('password', 'password', 'required|max_length[20]');
+            if ($this->form_validation->run() == FALSE)
+			{
+                //-- error form
+                echo "<script>alert('fail to change password')</script>";
+                $this->load->model('employee_model');
+                $data['employee'] = $this->employee_model->getOneEmployee($eid)->result(); 
+                redirect(base_url().'index.php/page_admin/new_password/'.$eid);
+                //$this->load->view('page_admin/new_password',$data);
+			}
+            else
+            {
+                //update emp
+                
+                $ar = array(
+                    'employee_password' => md5(sha1($this->input->post('password')))
+                );
+                $this->load->model('employee_model');
+                $this->employee_model->change_password($ar,$eid);
+                redirect(base_url().'index.php/page_admin/employee');
+            }
+        }
+        
+    }
+    public function edit_profile(){
+        if($this->checklogin() == false){
+            redirect(base_url()."index.php/page_admin/");
+        }
+        if($this->input->post('btn_edit') == null){
+            $this->load->view("page_admin/edit_profile");
+        }else{
+            $this->load->library('form_validation');
+			$this->form_validation->set_rules('employee_no', 'employee_no', 'required|max_length[5]');
+			$this->form_validation->set_rules('employee_name', 'employee_name', 'required|max_length[80]');			
+			
+			if ($this->form_validation->run() == FALSE)
+			{
+                //echo "dfsfdsd";
+				$this->load->view("page_admin/edit_profile");
+			}
+			else
+			{
+				$this->load->model('employee_model');
+				$this->employee_model->update();
+				//$this->create_afterLogin_session($_SESSION['customer_email']);
+				$this->form_validation->set_rules('employee_no', 'employee_no', 'required|max_length[5]');
+                $this->form_validation->set_rules('employee_name', 'employee_name', 'required|max_length[80]');        
+                $_SESSION['employee_no'] = $this->input->post("employee_no");
+                $_SESSION['employee_name'] = $this->input->post("employee_name");
+                
+                redirect(base_url()."index.php/page_admin/profile");
+
+			}
+        }
+        
+
     }
     public function login()
     {
@@ -39,14 +113,9 @@ class Page_admin extends CI_Controller
                     }else{
                         redirect(base_url().'index.php/page_admin/employee_work');
                     }
-                    
-
                 }
-
 			}
         }
-        
-        
     }
     //------------------ employee--------------
     public function emp_wod_complete(){
@@ -71,7 +140,6 @@ class Page_admin extends CI_Controller
                 die();
             }    
         }
-
         $page_a = $page -1;
         $this->load->model('quote_model');
         //$data['quotes'] = $this->quote_model->getQuoteLimitPage($page_a*10,10,1)->result();
@@ -90,7 +158,6 @@ class Page_admin extends CI_Controller
         if($_SESSION['emp_branch_id'] == 2 ){
             die();
         }
-       
     }
     private function checklogin(){
         if(empty($_SESSION['logged_in_admin'])){
@@ -110,6 +177,27 @@ class Page_admin extends CI_Controller
                 return false;
             }
         }
+    }
+    public function logout()
+    {
+        $this->unset_session();
+        redirect(base_url()."index.php/page_admin");
+    }
+    public function unset_session()
+    {
+        $array_items = array(
+			'employee_id'				,
+			'employee_no'			    ,
+			'employee_name'     		,
+			'emp_branch_id'     		,
+			'employee_username'     	,
+			'emp_branch_id'     		,
+			'emp_branch_name'     		,
+			'logged_in_admin'							
+
+            );
+            $this->session->unset_userdata($array_items);
+
     }
     private function create_session($emp_data)
     {  
@@ -134,14 +222,12 @@ class Page_admin extends CI_Controller
 			'employee_username'     	,
 			'emp_branch_id'     		,
 			'emp_branch_name'     		,
-			'logged_in_admin'							
-
+			'logged_in_admin'
 			);
 		
 		$this->session->set_userdata($newdata);
-		$this->session->mark_as_temp($array_items, 3600);
+		$this->session->mark_as_temp($array_items, 86400);
     }
-    
     public function delete_quote_quote()
     {
         $this->check_all();
@@ -248,7 +334,6 @@ class Page_admin extends CI_Controller
             }
             $this->load->view('page_admin/search',$data);
         }
-        
         
     }
     public function profile()
@@ -434,7 +519,7 @@ class Page_admin extends CI_Controller
 			if ($this->form_validation->run() == FALSE)
 			{
                 //-- error form
-                echo "<script>alert('fail')</script>";
+                echo "<script>alert('fail to update')</script>";
                 $this->load->model('employee_model');
                 $data['employee'] = $this->employee_model->getOneEmployee($eid)->result(); 
     

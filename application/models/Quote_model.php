@@ -101,6 +101,7 @@ class Quote_model extends CI_Model
         return $this->db->get('quote');
     }
     public function search($word){
+        
         $data = array("%".$word.'%','%'.$word.'%');
         $sql = "SELECT *,quote.quote_id,sum(workorder.workorder_status) total_workorder_status FROM `quote`
         LEFT JOIN customer on customer.customer_id = quote.customer_id

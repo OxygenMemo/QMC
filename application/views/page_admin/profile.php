@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,14 +43,14 @@
                                 <div class="form-group">
                                     <label for="employee_no">employee_no :  <?php echo form_error('employee_no'); ?></label>
                                     <input type="text" class="form-control" id="employee_no" 
-                                    placeholder="Your employee no" name="customer_code" maxlength="4" 
+                                    placeholder="Your employee no" name="employee_no" maxlength="4" 
                                     value="<?= htmlspecialchars($_SESSION['employee_no']);?>"  disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="employee_name">employee_name: </label>
                                     <input type="text" class="form-control" id="employee_name"
                                     placeholder="Your company name" name="employee_name" maxlength="80" 
-                                    value="<?= htmlspecialchars('employee_name'); ?>"  disabled>
+                                    value="<?=  htmlspecialchars($_SESSION['employee_name']); ?>"  disabled>
                                 </div>
                                 <div class="form-group">
                                     <label for="employee_username">employee_username : </label>
@@ -65,12 +65,10 @@
                                     value="<?=  htmlspecialchars($_SESSION['emp_branch_name']);?>">
                                 </div>
                                
-                                <button name="submit" type="submit" class="btn btn-default">Submit</button>
-                               
                             
-                            <div class="clr"></div>
+                            <div class="clr"><a href="<?= base_url() ?>index.php/page_admin/edit_profile"><button type="button" class="btn btn-default">Edit</button></a></div>
                         </div>
-                
+                        
             
                     </div>
                 </div>

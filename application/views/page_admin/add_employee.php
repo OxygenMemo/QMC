@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,7 +39,8 @@
                         <p></p>
                         
                         <div class="article" style="text-align: left;" >
-                        <?= form_open(base_url()."index.php/page_admin/add_employee"); ?>
+                        
+                        <form method="post" action="<?= base_url() ?>index.php/page_admin/add_employee" onsubmit="return formvalid()">
                                 
                                 <div class="form-group">
                                     <label for="employee_name">name: </label>
@@ -65,15 +66,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="employee_password">password : </label>
-                                    <input type="text" class="form-control" id="employee_password" 
+                                    <input type="password" class="form-control" id="password" 
                                     placeholder="password" name="employee_password" maxlength="20" >
                                 </div>
                                 <div class="form-group">
                                     <label for="employee_password">password confirm : </label>
-                                    <input type="text" class="form-control" id="employee_password" 
+                                    <input type="password" class="form-control" id="repassword" 
                                     placeholder="password confirm" name="employee_password" maxlength="20" >
                                 </div>
-                                
+                                <p style="color:red" id='error'></p>
                                
                                 <button name="submit" type="submit" class="btn btn-default" value="ok">Submit</button>
                         </form>
@@ -95,7 +96,15 @@
         </div>
         </section>
 
-
+    <script>
+        function formvalid(){
+                if($('#repassword').val() == $('#password').val()){
+                    return true;
+                }
+                $('#error').html("password don't match");
+                return false;
+        }    
+    </script>
      <!-- Core JavaScript Files -->
      <script src="<?= base_url() ?>share/js/jquery.min.js"></script>
     <script src="<?= base_url() ?>share/js/bootstrap.min.js"></script>

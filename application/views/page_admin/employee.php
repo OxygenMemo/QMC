@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,16 +36,8 @@
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
                         <h2>Employee </h2>
+                        <p>การแก้ใขข้อมูล Employee นั้นจะมีผลต่อเมื่อมีการ Login อีกรอบ</p>
                         
-                        <form class="form-inline" action="/action_page.php">
-                            <div class="form-group">
-                                <label for="search">search : </label>
-                                <input type="text"  class="form-control" name="search" id="search">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-                        </form> 
-                        <br>
                         <a href="<?= base_url() ?>index.php/page_admin/add_employee">
                             <button type="button" class="btn">
                             <span class="glyphicon glyphicon-plus"></span> add employee

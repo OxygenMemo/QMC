@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2" >
                     <div class="section-heading req-quote">
-                        <h2>Recive </h2>
+                        <h2>Receive </h2>
                         <!--
                         <form class="form-inline" action="/action_page.php">
                         
@@ -84,7 +84,7 @@
                                             case 1: echo "<td><a href='".base_url()."index.php/page_admin/working/{$value->quote_id}'>working</a></td>"; break;
                                             case 2: echo "<td><a href='".base_url()."index.php/page_admin/recieve_detail/{$value->quote_id}'>receive</a></td>"; break;
                                         }
-                                        echo "<td><span class='glyphicon glyphicon-envelope'></span></td>";
+                                        
                                         //echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
                                         echo "<td>
                                                 <form action='".base_url()."index.php/page_admin/delete_quote_recive' method='post'>

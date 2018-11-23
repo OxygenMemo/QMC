@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,7 +89,7 @@
                                             <form action='".base_url()."index.php/page_admin/create_recive' method='post'>
                                             <input type='hidden' name='qid' value='{$value->quote_id}'>
                                             <input type='hidden' name='qno' value='{$value->quote_no}'>
-                                            <button name='submit' type='subbmit' onclick='return confirm(`you want to create recieve {$value->quote_no}?`)' ><span class='glyphicon glyphicon-ok'></span><button>
+                                            <button name='submit' type='subbmit' onclick='return confirm(`you want to create recieve {$value->quote_no}?`)' ><span class='glyphicon glyphicon-ok'></span></button>
                                             </form>
                                             </td>";
                                         }else{
@@ -109,7 +109,7 @@
                                     }
                                 }
                                 ?>
-;
+
 
                             </table>
                                 

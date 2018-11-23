@@ -36,4 +36,22 @@ class Customer_model extends CI_Model
         $this->db->insert('customer', $data);
     
     }
+    public function update(){
+        $data = array(
+            'customer_company' => $this->input->post("customer_company"),
+            'customer_code' => $this->input->post("customer_code"),
+            'customer_contact' => $this->input->post("customer_contact"),
+            'customer_branch' => $this->input->post("customer_branch"),
+            'customer_address' => $this->input->post("customer_address"),
+            'customer_postcode' => $this->input->post("postcode"),
+            'customer_texid' => $this->input->post("customer_texid"),
+            'customer_tel' => $this->input->post("customer_tel"),
+            'customer_mobile' => $this->input->post("customer_mobile"),
+            'customer_fax' => $this->input->post("customer_fax"),
+            //'customer_email' => $_SESSION['customer_email'],
+            'customer_discount_percent' => 0
+        );
+        $this->db->where('customer_email',$_SESSION['customer_email']);
+        $this->db->update('customer', $data);
+    }
 }

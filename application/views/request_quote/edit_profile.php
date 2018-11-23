@@ -38,71 +38,73 @@
                         <h2>Your profile</h2>
                         <p></p>
                         <p>Your email : <?php echo  htmlspecialchars($_SESSION['customer_email']) ?></p>
-                        <div class="article" style="text-align: left;" >
+                        <?php echo form_open(base_url()."index.php/page/edit_profile"); ?>
                         
+                        <div class="article" style="text-align: left;" >
+
                                 <div class="form-group">
-                                    <label for="customer_code">Company code : <sub>(ตัวอักษรย่อของบริษัท 4 ตัว)</sub> <?php echo form_error('company_code'); ?></label>
+                                    <label for="customer_code">Company code : <sub>(ตัวอักษรย่อของบริษัท 4 ตัว)</sub> <?php echo form_error('customer_code'); ?></label>
                                     <input type="text" class="form-control" id="customer_code" 
                                     placeholder="Your company code" name="customer_code" maxlength="4" 
-                                    value="<?= htmlspecialchars($_SESSION['customer_code']);?>"  disabled>
+                                    value="<?= htmlspecialchars($_SESSION['customer_code']);?>"  />
                                 </div>
                                 <div class="form-group">
                                 
                                     <label for="company_name">Company name : </label>
-                                    <input type="text" class="form-control" id="company_name"
-                                    placeholder="Your company name" name="company_name" maxlength="80" 
-                                    value="<?= htmlspecialchars($_SESSION['customer_company']); ?>"  disabled>
+                                    <input type="text" class="form-control" id="customer_company"
+                                    placeholder="Your company name" name="customer_company" maxlength="80" 
+                                    value="<?= htmlspecialchars($_SESSION['customer_company']); ?>"  />
                                 </div>
                                 <div>
                                     <label for="customer_contact">Contact : </label>
                                     <input type="text" class="form-control" id="customer_contact" 
                                     placeholder="Contact" name="customer_contact" maxlength="60" 
-                                    value="<?= htmlspecialchars($_SESSION['customer_contact']) ?>" disabled>
+                                    value="<?= htmlspecialchars($_SESSION['customer_contact']) ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="customer_branch">branch : </label>
                                     <input type="text" class="form-control" id="customer_branch" 
-                                    placeholder="Your branch" name="customer_branch" maxlength="50" disabled
+                                    placeholder="Your branch" name="customer_branch" maxlength="50" 
                                     value="<?=  htmlspecialchars($_SESSION['customer_branch']);?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address: </label>
-                                    <textarea style="resize: vertical; " class="form-control" id="address" 
-                                    placeholder="Your company address" name="address" maxlength="150" disabled
+                                    <textarea style="resize: vertical; " class="form-control" id="customer_address" 
+                                    placeholder="Your company address" name="customer_address" maxlength="150" 
                                     ><?= htmlspecialchars($_SESSION['customer_address']) ?></textarea>
                                 </div>
 
                                 <div class="form-group">
                                         <label for="tex_id">tex id : <?php echo form_error('tex_id'); ?></label>
-                                        <input type="text" class="form-control" id="tex_id" 
-                                        placeholder="Your company tex id" name="tex_id" required maxlength="12"
-                                        value="<?= htmlspecialchars($_SESSION['customer_texid']);?>" disabled>
+                                        <input type="text" class="form-control" id="customer_texid" 
+                                        placeholder="Your company tex id" name="customer_texid" required maxlength="12"
+                                        value="<?= htmlspecialchars($_SESSION['customer_texid']);?>" >
                                 </div>
                                 <div class="form-group">
-                                        <label for="tel">tel : <?php echo form_error('tel'); ?></label>
-                                        <input type="text" class="form-control" id="tel" 
-                                        placeholder="Your company tel" name="tel" required maxlength="12"
-                                        value="<?= htmlspecialchars($_SESSION['customer_tel']);?>" disabled>
+                                        <label for="tel">tel : <?php echo form_error('customer_tel'); ?></label>
+                                        <input type="text" class="form-control" id="customer_tel" 
+                                        placeholder="Your company tel" name="customer_tel" required maxlength="12"
+                                        value="<?= htmlspecialchars($_SESSION['customer_tel']);?>" >
                                 </div>
                                 <div class="form-group">
                                         <label for="mobile">mobile : <?php echo form_error('mobile'); ?></label>
-                                        <input type="text" class="form-control" id="mobile" 
-                                        placeholder="Your company mobile" name="mobile" required maxlength="12"
-                                        value="<?= htmlspecialchars($_SESSION['customer_mobile']);?>" disabled>
+                                        <input type="text" class="form-control" id="customer_mobile" 
+                                        placeholder="Your company mobile" name="customer_mobile" required maxlength="12"
+                                        value="<?= htmlspecialchars($_SESSION['customer_mobile']);?>" >
                                 </div>
                                 <div class="form-group">
                                         <label for="fax">Fax : <?php echo form_error('fax'); ?></label>
-                                        <input type="text" class="form-control" id="fax" 
-                                        placeholder="Your company fax" name="fax" required maxlength="12"
-                                        value="<?= htmlspecialchars($_SESSION['customer_fax']);?>" disabled>
+                                        <input type="text" class="form-control" id="customer_fax" 
+                                        placeholder="Your company fax" name="customer_fax" required maxlength="12"
+                                        value="<?= htmlspecialchars($_SESSION['customer_fax']);?>" >
                                 </div>
                                 
 
                                
                             
-                            <div class="clr"><a href="<?= base_url() ?>index.php/page/edit_profile"><button type="button" class="btn btn-default">Edit</button></a></div>
+                            <div class="clr"><input type="submit" name="btn_edit" value="save" class="btn btn-info"/></div>
                         </div>
-                
+                        </form>
             
                     </div>
                 </div>

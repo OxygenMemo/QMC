@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,8 +87,8 @@
                                             case 2: echo "<td>complete</td><td></td>"; break;
                                         }
                                         
-                                       
-                                        echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
+                                        echo "<td></td>";
+                                        //echo "<td><span class='glyphicon glyphicon-pencil'></span></td>";
                                         echo "<td>
                                                 <form action='".base_url()."index.php/page_admin/delete_quote_quote' method='post'>
                                                 <input type='hidden' name='qid' value='{$value->quote_id}'>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,7 @@
                         <form class="form-inline" method="post" action="<?= base_url() ?>index.php/page_admin/search">
                             <div class="form-group">
                                 <label for="search">search : </label>
-                                <input type="text"  class="form-control" name="search" id="search">
+                                <input type="text"  class="form-control" name="submit" id="submit">
                             </div>
                             
                             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>

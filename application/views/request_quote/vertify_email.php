@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="section-heading req-quote">
                         <h2>Vertify email</h2>
-                        <p>กรุณาตรวจสอบอีเมลของคุณ โปรดตรวจสอบชุดตัวเลขที่ส่งไปทางอีเมล</p>
+                        <p>กรุณาตรวจสอบอีเมลของคุณ ตรวจสอบชุดตัวเลขที่ส่งไปทางอีเมล</p>
                         <p>Your email : <?php echo $_SESSION['customer_email'] ?></p>
                         <div class="article" >
                         <?php echo form_open(base_url()."index.php/page/vertify"); ?>

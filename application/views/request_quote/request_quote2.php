@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,29 +57,30 @@
                                         <th width="100px">option {{data[0].category}}</th>
                                     </tr>
                                     
-                                        <tr >
+                                        <tr ng-repeat="(key_datasend,data) in data_send">
                                             <td>
-                                                <select ng-model="data_send[0].category" ng-change="change_category(data_send[0].category,0)" required >
+                                                <select ng-model="data.category" ng-change="change_category(key_datasend)" required >
                                                     <option class="category" value="">กรุณาเลือก</option>
-                                                   <option  ng-repeat="(key,category) in products.categories " class="category" value="{{products.categories[key]}}">{{ category.product_category_name}}</option> 
+                                                    <option ng-repeat="(key_cate,category) in products.categories " class="category" value="{{key_cate}}">{{category.product_category_name}}</option> 
                                                    
                                                 </select>
                                             </td>
                                             <td >
-                                                <select ng-model="data_send[0].product" required>
-                                                    <option class="product" value="">----------- กรุณาเลือก -----------</option>
-                                                    <option class="product" ng-repeat="x in products[0]">{{x.product_id}}</option>
-                                                    
+                                                <select ng-model="data.product_id" ng-change="update_unitprice(key_datasend)" required>
+                                                    <option class="product" value="" >----------- กรุณาเลือก -----------</option>
+                                                    <option class="product" ng-repeat="(keyp,x) in data.products" value="{{keyp}}" >{{x.product_name}}</option>
                                                 </select>
                                             </td>
                                             <td>
-                                                <p id="unitprice">0.00</p>
+                                                <p id="unitprice" ng-if="data.unitprice">{{data.unitprice}}</p>
+                                                <p id="unitprice" ng-if="!data.unitprice">0.00</p>
                                             </td>
                                             <td>
-                                                <input onkeyup="change_quantity(this)" name="quantity[]" value="1"  width="50" type="number" required min="1" max="100">
+                                                <input ng-change="cal_totalprice(key_datasend)" ng-disabled="!data.unitprice" ng-model="data.quality" value="1"  width="50" type="number" required min="1" max="100">
                                             </td>
                                             <td>
-                                                <p class="amount">0.00</p>
+                                                <p class="amount" ng-if="data.total_price">{{data.total_price}}</p>
+                                                <p class="amount" ng-if="!data.total_price">0.00</p>
                                             </td>
                                             <td>
 
@@ -88,7 +89,7 @@
                                         <tr id="product-list" style="margin-top: 30px">
                                             
                                             <td colspan="6" style="text-align: center">
-                                                <input id="btnadd" type="button" value="add">
+                                                <input id="btnadd" ng-click="click_add()" type="button" value="add">
                                             </td>
                                         </tr>
                                         <tr >
@@ -136,17 +137,45 @@
             </div>
         </div>
         </section>
+        <script></script>
         <script>
             var app = angular.module('myApp', []);
             app.controller('tableProduct', function($scope, $http) {
+
                 $scope.products = <?= json_encode($products) ?>;
+                $scope.rowcount = 0;
+                $scope.data_send = [{id:0}];
+                $scope.total = 0;
 
-                $scope.gg=1;
-
-                $scope.change_category = function(category,index){
+                $scope.cal_totalprice = function(key_datasend){
+                    //alert(1)
+                    let cat_id = JSON.parse($scope.data_send[key_datasend].category);
+                    let pro_id = $scope.data_send[key_datasend].product_id;
+                    if((cat_id>=0) && (pro_id>=0)){
+                        $scope.data_send[key_datasend].total_price = parseInt($scope.products.categories[cat_id].products[pro_id].product_price *$scope.data_send[key_datasend].quality);
+                        //console.log($scope.products.categories[cat_id].products[pro_id].product_price *$scope.data_send[key_datasend].quality);
+                    }
+                }
+                $scope.update_unitprice = function(key_datasend){
+                    //alert(1);
+                    let cat_id = JSON.parse($scope.data_send[key_datasend].category);
+                    let pro_id = $scope.data_send[key_datasend].product_id;
+                    console.log((cat_id) + " "+ pro_id);
+                    //if((cat_id>=0) && (pro_id>=0)){
+                        $scope.data_send[key_datasend].unitprice = $scope.products.categories[cat_id].products[pro_id].product_price;
+                        console.log($scope.data_send[key_datasend].unitprice);
+                    //}
+                }
+                $scope.click_add = function(){
+                    $scope.rowcount++;
+                    $scope.data_send.push({id:$scope.rowcount});
+                }
+                $scope.change_category = function(index_datasend){
                     
                     //console.log(data.products);
-                    $scope.products[0] = JSON.parse(category).products;
+                    let x= $scope.data_send[index_datasend].category;
+                    $scope.data_send[index_datasend].products = 
+                    $scope.products.categories[x].products;
                 }
                 
             });

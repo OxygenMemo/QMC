@@ -41,4 +41,17 @@ class Employee_model extends CI_Model
         $this->db->where('emp_branch_id',$bid);
         return $this->db->get('employee');
     }
+    public function update(){
+        $data = array(
+            'employee_no' => $this->input->post("employee_no"),
+            'employee_name' => $this->input->post("employee_name")
+            
+        );
+        $this->db->where('employee_id',$_SESSION['employee_id']);
+        $this->db->update('employee', $data);
+    }
+    public function change_password($ar,$eid){
+        $this->db->where('employee_id',$eid);
+        $this->db->update('employee', $ar);
+    }
 }

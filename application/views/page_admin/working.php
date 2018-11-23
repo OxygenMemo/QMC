@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<link rel="icon" type="image/x-icon" href="http://measurementcalibration.com/img/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<?= base_url() ?>share/img/favicon.ico" />
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,7 +115,7 @@
 
                             </table>
                                 
-                            <button onclick="window.history.back();">back</button>
+                            <a href="<?= base_url() ?>index.php/page_admin/workorder"><button class="btn btn-default" >back</button></a>
                             <div class="clr"></div>
                         </div>
                 
